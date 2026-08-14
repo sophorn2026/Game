@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>🎡 កងបង្វិលគណិតវិទ្យា</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Moul&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Kantumruy Pro", sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, #dbeafe, transparent 35%),
+        radial-gradient(circle at bottom right, #fef3c7, transparent 35%),
+        linear-gradient(135deg, #eef2ff, #f8fafc);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #1e293b;
+    }
+
+    .game {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(255,255,255,.95);
+      border-radius: 28px;
+      padding: 25px;
+      box-shadow: 0 20px 60px rgba(15,23,42,.15);
+      text-align: center;
+    }
+
+    .title {
+      font-family: "Moul", serif;
+      color: #2563eb;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+
+    /* SCORE */
+    .score-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .score-box {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 12px;
+      border: 2px solid #e2e8f0;
+    }
+
+    .score-box .label {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .score-box .value {
+      font-size: 25px;
+      font-weight: 700;
+      color: #2563eb;
+      margin-top: 3px;
+    }
+
+    /* WHEEL */
+    .wheel-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 15px auto 25px;
+      position: relative;
+    }
+
+    .wheel-container {
+      position: relative;
+      width: min(70vw, 330px);
+      height: min(70vw, 330px);
+    }
+
+    .pointer {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-top: 40px solid #ef4444;
+      z-index: 10;
+      filter: drop-shadow(0 4px 3px rgba(0,0,0,.25));
+    }
+
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 10px solid white;
+      box-shadow:
+        0 8px 25px rgba(0,0,0,.2),
+        inset 0 0 0 3px #cbd5e1;
+
+      background: conic-gradient(
+        #3b82f6 0deg 45deg,
+        #22c55e 45deg 90deg,
+        #f59e0b 90deg 135deg,
+        #ef4444 135deg 180deg,
+        #8b5cf6 180deg 225deg,
+        #06b6d4 225deg 270deg,
+        #ec4899 270deg 315deg,
+        #84cc16 315deg 360deg
+      );
+
+      transition: transform 4s cubic-bezier(.15,.8,.2,1);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wheel-center {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      background: white;
+      border: 6px solid #2563eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 38px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    }
+
+    /* QUESTION */
+    .question-box {
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border: 2px solid #bfdbfe;
+      border-radius: 20px;
+      padding: 20px;
+      margin-top: 10px;
+    }
+
+    .question-label {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .question {
+      font-size: clamp(35px, 8vw, 55px);
+      font-weight: 700;
+      color: #1d4ed8;
+      margin: 8px 0;
+    }
+
+    /* BUTTON */
+    .spin-btn {
+      border: none;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      font-family: inherit;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 14px 35px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(37,99,235,.3);
+      transition: .2s;
+      margin: 15px 0;
+    }
+
+    .spin-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(37,99,235,.4);
+    }
+
+    .spin-btn:active {
+      transform: scale(.96);
+    }
+
+    .spin-btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ANSWERS */
+    .answers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .answer {
+      border: 3px solid #e2e8f0;
+      background: white;
+      border-radius: 18px;
+      padding: 17px 10px;
+      font-size: 25px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .answer:hover {
+      transform: translateY(-3px);
+      border-color: #60a5fa;
+      background: #eff6ff;
+    }
+
+    .answer.correct {
+      background: #dcfce7;
+      border-color: #22c55e;
+      color: #15803d;
+    }
+
+    .answer.wrong {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #b91c1c;
+    }
+
+    .answer:disabled {
+      cursor: default;
+    }
+
+    /* RESULT */
+    .result {
+      min-height: 40px;
+      margin-top: 18px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .correct-text {
+      color: #16a34a;
+    }
+
+    .wrong-text {
+      color: #dc2626;
+    }
+
+    .next-btn {
+      display: none;
+      border: none;
+      background: #16a34a;
+      color: white;
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px auto;
+    }
+
+    /* SETTINGS */
+    .settings {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    select {
+      font-family: inherit;
+      padding: 10px 15px;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      background: white;
+      font-size: 15px;
+    }
+
+    .reset-btn {
+      border: none;
+      background: #64748b;
+      color: white;
+      font-family: inherit;
+      padding: 10px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .footer {
+      margin-top: 20px;
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+
+      body {
+        padding: 10px;
+      }
+
+      .game {
+        padding: 18px 12px;
+        border-radius: 22px;
+      }
+
+      .title {
+        font-size: 21px;
+      }
+
+      .subtitle {
+        font-size: 13px;
+      }
+
+      .score-board {
+        gap: 7px;
+      }
+
+      .score-box {
+        padding: 9px 5px;
+      }
+
+      .score-box .label {
+        font-size: 11px;
+      }
+
+      .score-box .value {
+        font-size: 20px;
+      }
+
+      .wheel-container {
+        width: 250px;
+        height: 250px;
+      }
+
+      .wheel-center {
+        width: 65px;
+        height: 65px;
+        font-size: 28px;
+      }
+
+      .question-box {
+        padding: 14px;
+      }
+
+      .question {
+        font-size: 38px;
+      }
+
+      .answer {
+        font-size: 20px;
+        padding: 14px 5px;
+      }
+
+      .spin-btn {
+        font-size: 17px;
+        padding: 12px 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="game">
+
+  <h1 class="title">🎡 កងបង្វិលគណិតវិទ្យា</h1>
+
+  <p class="subtitle">
+    បង្វិលកង ហើយជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ
+  </p>
+
+  <!-- SCORE -->
+  <div class="score-board">
+
+    <div class="score-box">
+      <div class="label">🏆 ពិន្ទុ</div>
+      <div class="value" id="score">0</div>
+    </div>
+
+    <div class="score-box">
+      <div class="label">📝 សំណួរ</div>
+      <div class="value">
+        <span id="questionNumber">0</span>/20
+      </div>
+    </div>
+
+    <div class="score-box">
+      <div class="label">🔥 ត្រឹមត្រូវ</div>
+      <div class="value" id="correct">0</div>
+    </div>
+
+  </div>
+
+  <!-- WHEEL -->
+  <div class="wheel-area">
+
+    <div class="wheel-container">
+
+      <div class="pointer"></div>
+
+      <div class="wheel" id="wheel">
+
+        <div class="wheel-center">
+          🎯
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
+    🎡 បង្វិលកង
+  </button>
+
+  <!-- QUESTION -->
+  <div class="question-box">
+
+    <div class="question-label">
+      សំណួរ
+    </div>
+
+    <div class="question" id="question">
+      ? × ? = ?
+    </div>
+
+  </div>
+
+  <!-- ANSWERS -->
+  <div class="answers" id="answers">
+
+    <button class="answer" disabled>?</button>
+    <button class="answer" disabled>?</button>
+    <button class="answer" disabled>?</button>
+
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <button class="next-btn" id="nextBtn" onclick="newQuestion()">
+    ➡️ សំណួរបន្ទាប់
+  </button>
+
+  <!-- SETTINGS -->
+  <div class="settings">
+
+    <select id="operation">
+      <option value="mix">🔢 លាយគ្រប់ប្រភេទ</option>
+      <option value="multiply">✖️ គុណ</option>
+      <option value="divide">➗ ចែក</option>
+      <option value="add">➕ បូក</option>
+      <option value="subtract">➖ ដក</option>
+    </select>
+
+    <select id="level">
+      <option value="easy">⭐ ងាយ</option>
+      <option value="medium" selected>⭐⭐ មធ្យម</option>
+      <option value="hard">⭐⭐⭐ ពិបាក</option>
+    </select>
+
+    <button class="reset-btn" onclick="resetGame()">
+      🔄 ចាប់ផ្ដើមថ្មី
+    </button>
+
+  </div>
+
+  <div class="footer">
+    🎓 ល្បែងសម្រាប់ហាត់ជំនាញគណិតវិទ្យា
+  </div>
+
+</div>
+
+<script>
+
+let score = 0;
+let correct = 0;
+let questionCount = 0;
+
+let currentAnswer = null;
+let isSpinning = false;
+let answered = false;
+
+const maxQuestions = 20;
+
+const wheel = document.getElementById("wheel");
+const spinBtn = document.getElementById("spinBtn");
+const question = document.getElementById("question");
+const answers = document.getElementById("answers");
+const result = document.getElementById("result");
+const nextBtn = document.getElementById("nextBtn");
+
+
+// =============================
+// RANDOM NUMBER
+// =============================
+
+function randomNumber(min, max) {
+
+  return Math.floor(
+    Math.random() * (max - min + 1)
+  ) + min;
+
+}
+
+
+// =============================
+// GENERATE QUESTION
+// =============================
+
+function generateQuestion() {
+
+  const operation =
+    document.getElementById("operation").value;
+
+  const level =
+    document.getElementById("level").value;
+
+  let op = operation;
+
+  // Mix
+  if (op === "mix") {
+
+    const operations = [
+      "multiply",
+      "divide",
+      "add",
+      "subtract"
+    ];
+
+    op =
+      operations[
+        randomNumber(0, operations.length - 1)
+      ];
+  }
+
+  let a, b, answer, symbol;
+
+  // Difficulty
+  let max;
+
+  if (level === "easy") {
+    max = 10;
+  }
+
+  else if (level === "medium") {
+    max = 20;
+  }
+
+  else {
+    max = 50;
+  }
+
+
+  // MULTIPLY
+  if (op === "multiply") {
+
+    a = randomNumber(2, max);
+    b = randomNumber(2, 10);
+
+    answer = a * b;
+    symbol = "×";
+
+  }
+
+
+  // DIVIDE
+  else if (op === "divide") {
+
+    b = randomNumber(2, 10);
+    answer = randomNumber(2, max);
+
+    a = b * answer;
+
+    symbol = "÷";
+
+  }
+
+
+  // ADD
+  else if (op === "add") {
+
+    a = randomNumber(1, max);
+    b = randomNumber(1, max);
+
+    answer = a + b;
+    symbol = "+";
+
+  }
+
+
+  // SUBTRACT
+  else {
+
+    a = randomNumber(1, max);
+    b = randomNumber(1, max);
+
+    // Avoid negative
+    if (b > a) {
+      [a, b] = [b, a];
+    }
+
+    answer = a - b;
+    symbol = "−";
+
+  }
+
+
+  currentAnswer = answer;
+
+  question.textContent =
+    `${a} ${symbol} ${b} = ?`;
+
+  createAnswers(answer);
+
+}
+
+
+// =============================
+// CREATE 3 ANSWERS
+// =============================
+
+function createAnswers(correctAnswer) {
+
+  let choices = new Set();
+
+  choices.add(correctAnswer);
+
+  while (choices.size < 3) {
+
+    let offset =
+      randomNumber(1, 10);
+
+    // Randomly add or subtract
+    if (Math.random() > 0.5) {
+      offset = -offset;
+    }
+
+    let wrong =
+      correctAnswer + offset;
+
+    if (wrong >= 0 && wrong !== correctAnswer) {
+      choices.add(wrong);
+    }
+
+  }
+
+  let array =
+    Array.from(choices);
+
+  // Shuffle
+  array.sort(() => Math.random() - 0.5);
+
+  answers.innerHTML = "";
+
+  array.forEach(value => {
+
+    const btn =
+      document.createElement("button");
+
+    btn.className = "answer";
+
+    btn.textContent = value;
+
+    btn.onclick = () =>
+      checkAnswer(btn, value);
+
+    answers.appendChild(btn);
+
+  });
+
+}
+
+
+// =============================
+// CHECK ANSWER
+// =============================
+
+function checkAnswer(button, value) {
+
+  if (answered) return;
+
+  answered = true;
+
+  const allButtons =
+    document.querySelectorAll(".answer");
+
+  allButtons.forEach(btn => {
+    btn.disabled = true;
+  });
+
+
+  if (value === currentAnswer) {
+
+    button.classList.add("correct");
+
+    score += 10;
+
+    correct++;
+
+    result.innerHTML =
+      `<span class="correct-text">
+        🎉 ត្រឹមត្រូវ! +10 ពិន្ទុ
+      </span>`;
+
+  }
+
+  else {
+
+    button.classList.add("wrong");
+
+    allButtons.forEach(btn => {
+
+      if (
+        Number(btn.textContent) ===
+        currentAnswer
+      ) {
+        btn.classList.add("correct");
+      }
+
+    });
+
+    result.innerHTML =
+      `<span class="wrong-text">
+        ❌ មិនត្រឹមត្រូវ! ចម្លើយគឺ ${currentAnswer}
+      </span>`;
+
+  }
+
+
+  updateScore();
+
+  nextBtn.style.display = "block";
+
+}
+
+
+// =============================
+// NEW QUESTION
+// =============================
+
+function newQuestion() {
+
+  if (questionCount >= maxQuestions) {
+
+    showFinalResult();
+
+    return;
+  }
+
+  questionCount++;
+
+  answered = false;
+
+  result.innerHTML = "";
+
+  nextBtn.style.display = "none";
+
+  generateQuestion();
+
+  updateScore();
+
+}
+
+
+// =============================
+// SPIN WHEEL
+// =============================
+
+function spinWheel() {
+
+  if (isSpinning) return;
+
+  if (questionCount >= maxQuestions) {
+
+    showFinalResult();
+
+    return;
+  }
+
+  isSpinning = true;
+
+  spinBtn.disabled = true;
+
+  const randomRotation =
+    1440 + randomNumber(0, 360);
+
+  wheel.style.transform =
+    `rotate(${randomRotation}deg)`;
+
+
+  setTimeout(() => {
+
+    isSpinning = false;
+
+    spinBtn.disabled = false;
+
+    newQuestion();
+
+  }, 4200);
+
+}
+
+
+// =============================
+// UPDATE SCORE
+// =============================
+
+function updateScore() {
+
+  document.getElementById("score")
+    .textContent = score;
+
+  document.getElementById("correct")
+    .textContent = correct;
+
+  document.getElementById("questionNumber")
+    .textContent = questionCount;
+
+}
+
+
+// =============================
+// FINAL RESULT
+// =============================
+
+function showFinalResult() {
+
+  let percentage =
+    Math.round(
+      (correct / maxQuestions) * 100
+    );
+
+  let message;
+
+  if (percentage >= 90) {
+    message = "🏆 អស្ចារ្យណាស់!";
+  }
+
+  else if (percentage >= 70) {
+    message = "🌟 ល្អណាស់!";
+  }
+
+  else if (percentage >= 50) {
+    message = "👍 ខិតខំបន្ថែមទៀត!";
+  }
+
+  else {
+    message = "💪 កុំបោះបង់! សាកល្បងម្ដងទៀត!";
+  }
+
+
+  question.textContent =
+    "🎊 ចប់ការប្រកួត!";
+
+  answers.innerHTML = "";
+
+  result.innerHTML = `
+    <div style="font-size:24px; margin:15px;">
+      ${message}
+    </div>
+
+    <div>
+      ពិន្ទុ៖ <strong>${score}</strong>
+    </div>
+
+    <div>
+      ត្រឹមត្រូវ៖ <strong>${correct}/${maxQuestions}</strong>
+    </div>
+
+    <div>
+      លទ្ធផល៖ <strong>${percentage}%</strong>
+    </div>
+  `;
+
+  nextBtn.style.display = "none";
+
+  spinBtn.disabled = true;
+
+}
+
+
+// =============================
+// RESET GAME
+// =============================
+
+function resetGame() {
+
+  score = 0;
+
+  correct = 0;
+
+  questionCount = 0;
+
+  currentAnswer = null;
+
+  answered = false;
+
+  isSpinning = false;
+
+  spinBtn.disabled = false;
+
+  wheel.style.transform =
+    "rotate(0deg)";
+
+  question.textContent =
+    "? × ? = ?";
+
+  answers.innerHTML = `
+    <button class="answer" disabled>?</button>
+    <button class="answer" disabled>?</button>
+    <button class="answer" disabled>?</button>
+  `;
+
+  result.innerHTML = "";
+
+  nextBtn.style.display = "none";
+
+  updateScore();
+
+}
+
+
+// =============================
+// START
+// =============================
+
+updateScore();
+
+</script>
+
+</body>
+</html>
