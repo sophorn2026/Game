@@ -1,946 +1,3543 @@
 <!DOCTYPE html>
 <html lang="km">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>🎡 កងបង្វិលគណិតវិទ្យា</title>
+<title>ដំណើរអ្នកប្រាជ្ញតូច</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Moul&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Moul&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --primary:#5b5ce2;
+    --secondary:#7c3aed;
+    --success:#16a34a;
+    --danger:#dc2626;
+    --warning:#f59e0b;
+    --info:#0284c7;
+    --bg:#f4f7ff;
+    --card:#ffffff;
+    --text:#20233a;
+    --muted:#697086;
+    --border:#e4e7f2;
+    --shadow:0 10px 30px rgba(43,48,90,.10);
+}
+
+body{
+    font-family:"Kantumruy Pro",sans-serif;
+    background:
+      radial-gradient(circle at top left,#e7e8ff 0,transparent 30%),
+      radial-gradient(circle at bottom right,#dff7ff 0,transparent 30%),
+      var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button{
+    font-family:inherit;
+}
+
+.app{
+    max-width:1250px;
+    margin:auto;
+    padding:15px;
+}
+
+.header{
+    background:linear-gradient(135deg,#5b5ce2,#7c3aed,#2563eb);
+    color:white;
+    border-radius:24px;
+    padding:18px 20px;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+}
+
+.header:after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(255,255,255,.10);
+    right:-50px;
+    top:-80px;
+}
+
+.header-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    position:relative;
+    z-index:2;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-icon{
+    width:55px;
+    height:55px;
+    border-radius:18px;
+    background:rgba(255,255,255,.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+}
+
+.logo h1{
+    font-family:"Moul",sans-serif;
+    font-size:20px;
+}
+
+.logo p{
+    font-size:12px;
+    opacity:.9;
+}
+
+.header-actions{
+    display:flex;
+    gap:8px;
+}
+
+.icon-btn{
+    border:none;
+    background:rgba(255,255,255,.16);
+    color:white;
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.stats{
+    margin-top:14px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+.stat{
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:15px;
+    padding:10px;
+}
+
+.stat small{
+    opacity:.8;
+    display:block;
+    font-size:11px;
+}
+
+.stat strong{
+    display:block;
+    font-size:18px;
+    margin-top:2px;
+}
+
+main{
+    margin-top:18px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+    animation:fadeIn .25s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(8px)}
+    to{opacity:1;transform:none}
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:20px 3px 12px;
+}
+
+.section-title h2{
+    font-size:19px;
+}
+
+.section-title span{
+    font-size:12px;
+    color:var(--muted);
+}
+
+.hero{
+    background:var(--card);
+    border-radius:24px;
+    padding:25px;
+    box-shadow:var(--shadow);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.hero-text h2{
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+.hero-text p{
+    color:var(--muted);
+    line-height:1.8;
+}
+
+.hero-character{
+    font-size:90px;
+    min-width:130px;
+    text-align:center;
+}
+
+.btn{
+    border:none;
+    cursor:pointer;
+    border-radius:13px;
+    padding:11px 18px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-primary{
+    color:white;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+}
+
+.btn-success{
+    color:white;
+    background:var(--success);
+}
+
+.btn-warning{
+    color:white;
+    background:var(--warning);
+}
+
+.btn-danger{
+    color:white;
+    background:var(--danger);
+}
+
+.btn-light{
+    color:var(--text);
+    background:#eef0f8;
+}
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.category{
+    background:var(--card);
+    border:2px solid transparent;
+    border-radius:20px;
+    padding:20px 15px;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    transition:.2s;
+    text-align:center;
+}
+
+.category:hover{
+    transform:translateY(-4px);
+    border-color:#b8b9ff;
+}
+
+.category-icon{
+    font-size:44px;
+    margin-bottom:8px;
+}
+
+.category h3{
+    font-size:16px;
+}
+
+.category p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.menu-card{
+    background:var(--card);
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    transition:.2s;
+}
+
+.menu-card:hover{
+    transform:translateY(-4px);
+}
+
+.menu-card .big{
+    font-size:42px;
+}
+
+.menu-card h3{
+    margin-top:7px;
+}
+
+.menu-card p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+}
+
+.level-map{
+    background:var(--card);
+    border-radius:24px;
+    padding:20px;
+    box-shadow:var(--shadow);
+}
+
+.levels{
+    display:grid;
+    grid-template-columns:repeat(10,1fr);
+    gap:9px;
+}
+
+.level{
+    aspect-ratio:1;
+    border-radius:14px;
+    border:2px solid var(--border);
+    background:#fafbff;
+    cursor:pointer;
+    font-weight:700;
+    position:relative;
+}
+
+.level.unlocked{
+    background:#eef0ff;
+    border-color:#c6c8ff;
+    color:#4f46e5;
+}
+
+.level.completed{
+    background:#dcfce7;
+    border-color:#86efac;
+    color:#15803d;
+}
+
+.level.locked{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+.level.current{
+    box-shadow:0 0 0 4px rgba(91,92,226,.15);
+}
+
+.level .check{
+    position:absolute;
+    font-size:10px;
+    right:3px;
+    top:2px;
+}
+
+.game-card{
+    max-width:850px;
+    margin:0 auto;
+    background:var(--card);
+    border-radius:25px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+.game-top{
+    background:linear-gradient(135deg,#5b5ce2,#7c3aed);
+    color:white;
+    padding:18px;
+}
+
+.game-top-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.progress{
+    margin-top:12px;
+    height:9px;
+    background:rgba(255,255,255,.2);
+    border-radius:99px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    background:white;
+    border-radius:99px;
+    transition:.4s;
+}
+
+.game-body{
+    padding:25px;
+}
+
+.question-number{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.question{
+    font-size:26px;
+    font-weight:700;
+    line-height:1.6;
+    text-align:center;
+    margin:18px 0 25px;
+}
+
+.answers{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+}
+
+.answer{
+    padding:16px;
+    border:2px solid var(--border);
+    border-radius:16px;
+    background:#fff;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.answer:hover{
+    border-color:#818cf8;
+    background:#f5f5ff;
+}
+
+.answer.correct{
+    background:#dcfce7;
+    border-color:#22c55e;
+    color:#15803d;
+}
+
+.answer.wrong{
+    background:#fee2e2;
+    border-color:#ef4444;
+    color:#b91c1c;
+}
+
+.feedback{
+    min-height:55px;
+    text-align:center;
+    margin-top:20px;
+    font-size:18px;
+    font-weight:700;
+}
+
+.feedback.good{
+    color:var(--success);
+}
+
+.feedback.bad{
+    color:var(--danger);
+}
+
+.game-actions{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:10px;
+}
+
+.wheel-area{
+    background:var(--card);
+    padding:30px;
+    border-radius:25px;
+    box-shadow:var(--shadow);
+    text-align:center;
+}
+
+.wheel{
+    width:280px;
+    height:280px;
+    border-radius:50%;
+    margin:25px auto;
+    border:10px solid white;
+    box-shadow:0 10px 35px rgba(0,0,0,.15);
+    background:conic-gradient(
+        #ff7675 0 45deg,
+        #fdcb6e 45deg 90deg,
+        #55efc4 90deg 135deg,
+        #74b9ff 135deg 180deg,
+        #a29bfe 180deg 225deg,
+        #ffeaa7 225deg 270deg,
+        #81ecec 270deg 315deg,
+        #fab1a0 315deg 360deg
+    );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    transition:transform 4s cubic-bezier(.15,.7,.15,1);
+}
+
+.wheel-center{
+    width:75px;
+    height:75px;
+    background:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
+}
+
+.pointer{
+    position:absolute;
+    top:-18px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:35px;
+    z-index:3;
+}
+
+.wheel-result{
+    font-size:21px;
+    font-weight:700;
+    min-height:35px;
+}
+
+.word-game{
+    text-align:center;
+}
+
+.scrambled{
+    font-size:36px;
+    font-weight:700;
+    letter-spacing:8px;
+    margin:20px 0;
+    color:#4f46e5;
+}
+
+.word-input{
+    width:100%;
+    max-width:500px;
+    padding:15px;
+    border:2px solid var(--border);
+    border-radius:14px;
+    font-family:inherit;
+    font-size:20px;
+    text-align:center;
+    outline:none;
+}
+
+.word-input:focus{
+    border-color:var(--primary);
+}
+
+.guess-image{
+    font-size:100px;
+    margin:15px;
+}
+
+.error-text{
+    font-size:28px;
+    padding:25px;
+    background:#f8fafc;
+    border-radius:18px;
+    line-height:2;
+}
+
+.profile{
+    background:var(--card);
+    border-radius:25px;
+    padding:25px;
+    box-shadow:var(--shadow);
+}
+
+.profile-head{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:50px;
+    background:#eef0ff;
+}
+
+.badges{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-top:20px;
+}
+
+.badge{
+    background:#f8f9ff;
+    border-radius:18px;
+    padding:18px 10px;
+    text-align:center;
+    border:1px solid var(--border);
+}
+
+.badge.locked{
+    opacity:.35;
+    filter:grayscale(1);
+}
+
+.badge-icon{
+    font-size:35px;
+}
+
+.progress-box{
+    margin-top:20px;
+}
+
+.progress-line{
+    height:12px;
+    background:#edf0f7;
+    border-radius:99px;
+    overflow:hidden;
+}
+
+.progress-line span{
+    display:block;
+    height:100%;
+    background:linear-gradient(90deg,#5b5ce2,#a855f7);
+}
+
+.unlock-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.unlock{
+    padding:20px 10px;
+    border-radius:18px;
+    background:var(--card);
+    text-align:center;
+    box-shadow:var(--shadow);
+    border:2px solid var(--border);
+}
+
+.unlock.active{
+    border-color:#8b5cf6;
+}
+
+.unlock.locked{
+    opacity:.45;
+}
+
+.unlock-icon{
+    font-size:45px;
+}
+
+.table-wrap{
+    background:var(--card);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:13px;
+    border-bottom:1px solid var(--border);
+    text-align:center;
+}
+
+th{
+    background:#f4f5ff;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+    z-index:1000;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:520px;
+    background:white;
+    border-radius:25px;
+    padding:25px;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.close{
+    border:none;
+    background:#f1f5f9;
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.setting-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+}
+
+select,input[type="text"]{
+    padding:9px 12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    font-family:inherit;
+}
+
+.toast{
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:#20233a;
+    color:white;
+    padding:13px 20px;
+    border-radius:14px;
+    z-index:2000;
+    transition:.3s;
+    box-shadow:var(--shadow);
+}
+
+.toast.show{
+    transform:translateX(-50%) translateY(0);
+}
+
+.reward{
+    text-align:center;
+}
+
+.reward-icon{
+    font-size:80px;
+    margin:15px;
+    animation:bounce 1s infinite alternate;
+}
+
+@keyframes bounce{
+    to{transform:translateY(-10px)}
+}
+
+footer{
+    text-align:center;
+    padding:30px 10px;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+@media(max-width:800px){
+    .categories,
+    .menu-grid{
+        grid-template-columns:1fr 1fr;
     }
 
-    body {
-      font-family: "Kantumruy Pro", sans-serif;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, #dbeafe, transparent 35%),
-        radial-gradient(circle at bottom right, #fef3c7, transparent 35%),
-        linear-gradient(135deg, #eef2ff, #f8fafc);
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      color: #1e293b;
+    .levels{
+        grid-template-columns:repeat(5,1fr);
     }
 
-    .game {
-      width: 100%;
-      max-width: 900px;
-      background: rgba(255,255,255,.95);
-      border-radius: 28px;
-      padding: 25px;
-      box-shadow: 0 20px 60px rgba(15,23,42,.15);
-      text-align: center;
+    .hero{
+        flex-direction:column;
+        text-align:center;
     }
 
-    .title {
-      font-family: "Moul", serif;
-      color: #2563eb;
-      font-size: 28px;
-      margin-bottom: 8px;
+    .hero-character{
+        font-size:70px;
     }
 
-    .subtitle {
-      color: #64748b;
-      margin-bottom: 20px;
+    .badges,
+    .unlock-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:520px){
+    .app{
+        padding:8px;
     }
 
-    /* SCORE */
-    .score-board {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 25px;
+    .logo h1{
+        font-size:15px;
     }
 
-    .score-box {
-      background: #f8fafc;
-      border-radius: 16px;
-      padding: 12px;
-      border: 2px solid #e2e8f0;
+    .logo p{
+        font-size:10px;
     }
 
-    .score-box .label {
-      font-size: 14px;
-      color: #64748b;
+    .logo-icon{
+        width:45px;
+        height:45px;
+        font-size:24px;
     }
 
-    .score-box .value {
-      font-size: 25px;
-      font-weight: 700;
-      color: #2563eb;
-      margin-top: 3px;
+    .stats{
+        grid-template-columns:1fr 1fr;
     }
 
-    /* WHEEL */
-    .wheel-area {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 15px auto 25px;
-      position: relative;
+    .categories{
+        grid-template-columns:1fr 1fr;
     }
 
-    .wheel-container {
-      position: relative;
-      width: min(70vw, 330px);
-      height: min(70vw, 330px);
+    .question{
+        font-size:21px;
     }
 
-    .pointer {
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 18px solid transparent;
-      border-right: 18px solid transparent;
-      border-top: 40px solid #ef4444;
-      z-index: 10;
-      filter: drop-shadow(0 4px 3px rgba(0,0,0,.25));
+    .answers{
+        grid-template-columns:1fr;
     }
 
-    .wheel {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 10px solid white;
-      box-shadow:
-        0 8px 25px rgba(0,0,0,.2),
-        inset 0 0 0 3px #cbd5e1;
-
-      background: conic-gradient(
-        #3b82f6 0deg 45deg,
-        #22c55e 45deg 90deg,
-        #f59e0b 90deg 135deg,
-        #ef4444 135deg 180deg,
-        #8b5cf6 180deg 225deg,
-        #06b6d4 225deg 270deg,
-        #ec4899 270deg 315deg,
-        #84cc16 315deg 360deg
-      );
-
-      transition: transform 4s cubic-bezier(.15,.8,.2,1);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .wheel{
+        width:230px;
+        height:230px;
     }
 
-    .wheel-center {
-      width: 85px;
-      height: 85px;
-      border-radius: 50%;
-      background: white;
-      border: 6px solid #2563eb;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 38px;
-      box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    .hero-text h2{
+        font-size:22px;
     }
-
-    /* QUESTION */
-    .question-box {
-      background: linear-gradient(135deg, #eff6ff, #dbeafe);
-      border: 2px solid #bfdbfe;
-      border-radius: 20px;
-      padding: 20px;
-      margin-top: 10px;
-    }
-
-    .question-label {
-      color: #64748b;
-      font-size: 15px;
-    }
-
-    .question {
-      font-size: clamp(35px, 8vw, 55px);
-      font-weight: 700;
-      color: #1d4ed8;
-      margin: 8px 0;
-    }
-
-    /* BUTTON */
-    .spin-btn {
-      border: none;
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
-      color: white;
-      font-family: inherit;
-      font-size: 20px;
-      font-weight: 700;
-      padding: 14px 35px;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(37,99,235,.3);
-      transition: .2s;
-      margin: 15px 0;
-    }
-
-    .spin-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 25px rgba(37,99,235,.4);
-    }
-
-    .spin-btn:active {
-      transform: scale(.96);
-    }
-
-    .spin-btn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* ANSWERS */
-    .answers {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .answer {
-      border: 3px solid #e2e8f0;
-      background: white;
-      border-radius: 18px;
-      padding: 17px 10px;
-      font-size: 25px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      transition: .2s;
-    }
-
-    .answer:hover {
-      transform: translateY(-3px);
-      border-color: #60a5fa;
-      background: #eff6ff;
-    }
-
-    .answer.correct {
-      background: #dcfce7;
-      border-color: #22c55e;
-      color: #15803d;
-    }
-
-    .answer.wrong {
-      background: #fee2e2;
-      border-color: #ef4444;
-      color: #b91c1c;
-    }
-
-    .answer:disabled {
-      cursor: default;
-    }
-
-    /* RESULT */
-    .result {
-      min-height: 40px;
-      margin-top: 18px;
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .correct-text {
-      color: #16a34a;
-    }
-
-    .wrong-text {
-      color: #dc2626;
-    }
-
-    .next-btn {
-      display: none;
-      border: none;
-      background: #16a34a;
-      color: white;
-      font-family: inherit;
-      font-size: 18px;
-      font-weight: 700;
-      padding: 12px 28px;
-      border-radius: 30px;
-      cursor: pointer;
-      margin: 10px auto;
-    }
-
-    /* SETTINGS */
-    .settings {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-
-    select {
-      font-family: inherit;
-      padding: 10px 15px;
-      border: 2px solid #cbd5e1;
-      border-radius: 12px;
-      background: white;
-      font-size: 15px;
-    }
-
-    .reset-btn {
-      border: none;
-      background: #64748b;
-      color: white;
-      font-family: inherit;
-      padding: 10px 18px;
-      border-radius: 12px;
-      cursor: pointer;
-    }
-
-    .footer {
-      margin-top: 20px;
-      color: #94a3b8;
-      font-size: 13px;
-    }
-
-    /* MOBILE */
-    @media (max-width: 600px) {
-
-      body {
-        padding: 10px;
-      }
-
-      .game {
-        padding: 18px 12px;
-        border-radius: 22px;
-      }
-
-      .title {
-        font-size: 21px;
-      }
-
-      .subtitle {
-        font-size: 13px;
-      }
-
-      .score-board {
-        gap: 7px;
-      }
-
-      .score-box {
-        padding: 9px 5px;
-      }
-
-      .score-box .label {
-        font-size: 11px;
-      }
-
-      .score-box .value {
-        font-size: 20px;
-      }
-
-      .wheel-container {
-        width: 250px;
-        height: 250px;
-      }
-
-      .wheel-center {
-        width: 65px;
-        height: 65px;
-        font-size: 28px;
-      }
-
-      .question-box {
-        padding: 14px;
-      }
-
-      .question {
-        font-size: 38px;
-      }
-
-      .answer {
-        font-size: 20px;
-        padding: 14px 5px;
-      }
-
-      .spin-btn {
-        font-size: 17px;
-        padding: 12px 25px;
-      }
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-<div class="game">
+<div class="app">
 
-  <h1 class="title">🎡 កងបង្វិលគណិតវិទ្យា</h1>
-
-  <p class="subtitle">
-    បង្វិលកង ហើយជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ
-  </p>
-
-  <!-- SCORE -->
-  <div class="score-board">
-
-    <div class="score-box">
-      <div class="label">🏆 ពិន្ទុ</div>
-      <div class="value" id="score">0</div>
-    </div>
-
-    <div class="score-box">
-      <div class="label">📝 សំណួរ</div>
-      <div class="value">
-        <span id="questionNumber">0</span>/20
-      </div>
-    </div>
-
-    <div class="score-box">
-      <div class="label">🔥 ត្រឹមត្រូវ</div>
-      <div class="value" id="correct">0</div>
-    </div>
-
-  </div>
-
-  <!-- WHEEL -->
-  <div class="wheel-area">
-
-    <div class="wheel-container">
-
-      <div class="pointer"></div>
-
-      <div class="wheel" id="wheel">
-
-        <div class="wheel-center">
-          🎯
+<header class="header">
+    <div class="header-row">
+        <div class="logo">
+            <div class="logo-icon">🧠</div>
+            <div>
+                <h1>ដំណើរអ្នកប្រាជ្ញតូច</h1>
+                <p>លេងសប្បាយ • រៀនចំណេះដឹង • ក្លាយជាអ្នកឆ្លាត</p>
+            </div>
         </div>
 
-      </div>
+        <div class="header-actions">
+            <button class="icon-btn" onclick="showPage('home')">🏠</button>
+            <button class="icon-btn" onclick="openSettings()">⚙️</button>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat">
+            <small>⭐ ពិន្ទុ</small>
+            <strong id="topScore">0</strong>
+        </div>
+
+        <div class="stat">
+            <small>🏆 កម្រិត</small>
+            <strong id="topLevel">1</strong>
+        </div>
+
+        <div class="stat">
+            <small>❤️ ជីវិត</small>
+            <strong id="topLives">❤️❤️❤️</strong>
+        </div>
+
+        <div class="stat">
+            <small>🔥 Streak</small>
+            <strong id="topStreak">0</strong>
+        </div>
+    </div>
+</header>
+
+<main>
+
+<!-- HOME -->
+<section id="homePage" class="page active">
+
+    <div class="hero">
+        <div class="hero-text">
+            <h2>សួស្តី អ្នកប្រាជ្ញតូច! 👋</h2>
+            <p>
+                ត្រៀមខ្លួនសម្រាប់ដំណើរផ្សងព្រេងដ៏សប្បាយ
+                និងរៀនចំណេះដឹងថ្មីៗរាល់ថ្ងៃ។
+            </p>
+            <br>
+            <button class="btn btn-primary" onclick="continueGame()">
+                ▶️ បន្តការលេង
+            </button>
+        </div>
+
+        <div class="hero-character" id="heroCharacter">🧑‍🎓</div>
+    </div>
+
+    <div class="section-title">
+        <h2>📚 មុខវិជ្ជា</h2>
+        <span>ជ្រើសរើសមុខវិជ្ជាដែលចូលចិត្ត</span>
+    </div>
+
+    <div class="categories">
+
+        <div class="category" onclick="startCategory('khmer')">
+            <div class="category-icon">🔤</div>
+            <h3>ភាសាខ្មែរ</h3>
+            <p>ពាក្យ • ប្រយោគ • អំណាន</p>
+        </div>
+
+        <div class="category" onclick="startCategory('math')">
+            <div class="category-icon">🔢</div>
+            <h3>គណិតវិទ្យា</h3>
+            <p>បូក • ដក • គុណ • ចែក</p>
+        </div>
+
+        <div class="category" onclick="startCategory('science')">
+            <div class="category-icon">🌱</div>
+            <h3>វិទ្យាសាស្ត្រ</h3>
+            <p>ធម្មជាតិ • សត្វ • រាងកាយ</p>
+        </div>
+
+        <div class="category" onclick="startCategory('general')">
+            <div class="category-icon">🌍</div>
+            <h3>ចំណេះដឹងទូទៅ</h3>
+            <p>ពិភពលោក • កម្ពុជា • សង្គម</p>
+        </div>
 
     </div>
 
-  </div>
-
-  <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
-    🎡 បង្វិលកង
-  </button>
-
-  <!-- QUESTION -->
-  <div class="question-box">
-
-    <div class="question-label">
-      សំណួរ
+    <div class="section-title">
+        <h2>🎮 ល្បែងផ្សេងៗ</h2>
     </div>
 
-    <div class="question" id="question">
-      ? × ? = ?
+    <div class="menu-grid">
+
+        <div class="menu-card" onclick="openWheel()">
+            <div class="big">🎡</div>
+            <h3>កងបង្វិល</h3>
+            <p>បង្វិល និងឆ្លើយសំណួរ</p>
+        </div>
+
+        <div class="menu-card" onclick="openWordGame()">
+            <div class="big">🔤</div>
+            <h3>រៀបពាក្យ</h3>
+            <p>រៀបអក្សរឱ្យត្រឹមត្រូវ</p>
+        </div>
+
+        <div class="menu-card" onclick="openPictureGame()">
+            <div class="big">🖼️</div>
+            <h3>ទាយរូបភាព</h3>
+            <p>ស្គាល់សត្វ និងវត្ថុ</p>
+        </div>
+
+        <div class="menu-card" onclick="openErrorGame()">
+            <div class="big">🔍</div>
+            <h3>រកកំហុស</h3>
+            <p>សាកល្បងការសង្កេត</p>
+        </div>
+
+        <div class="menu-card" onclick="showLevels()">
+            <div class="big">🗺️</div>
+            <h3>ផែនទីកម្រិត</h3>
+            <p>កម្រិត 1–100</p>
+        </div>
+
+        <div class="menu-card" onclick="showProfile()">
+            <div class="big">👤</div>
+            <h3>ប្រវត្តិអ្នកលេង</h3>
+            <p>ស្ថិតិ និងមេដាយ</p>
+        </div>
+
+        <div class="menu-card" onclick="showUnlocks()">
+            <div class="big">🎁</div>
+            <h3>រង្វាន់</h3>
+            <p>តួអង្គ និងផ្ទៃថ្មី</p>
+        </div>
+
+        <div class="menu-card" onclick="showLeaderboard()">
+            <div class="big">🏆</div>
+            <h3>តារាងពិន្ទុ</h3>
+            <p>ពិន្ទុខ្ពស់បំផុត</p>
+        </div>
+
     </div>
 
-  </div>
+    <div class="section-title">
+        <h2>🎁 រង្វាន់ប្រចាំថ្ងៃ</h2>
+    </div>
 
-  <!-- ANSWERS -->
-  <div class="answers" id="answers">
+    <div class="profile">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:15px">
+            <div>
+                <h3>🎁 Daily Reward</h3>
+                <p style="color:var(--muted);font-size:13px;margin-top:5px">
+                    ចូលលេងរាល់ថ្ងៃ ដើម្បីទទួលបានពិន្ទុបន្ថែម!
+                </p>
+            </div>
+            <button class="btn btn-warning" id="dailyBtn" onclick="claimDailyReward()">
+                ទទួលរង្វាន់
+            </button>
+        </div>
+    </div>
 
-    <button class="answer" disabled>?</button>
-    <button class="answer" disabled>?</button>
-    <button class="answer" disabled>?</button>
+</section>
 
-  </div>
 
-  <div class="result" id="result"></div>
+<!-- LEVELS -->
+<section id="levelsPage" class="page">
 
-  <button class="next-btn" id="nextBtn" onclick="newQuestion()">
-    ➡️ សំណួរបន្ទាប់
-  </button>
+    <div class="section-title">
+        <h2>🗺️ ផែនទីអ្នកប្រាជ្ញ</h2>
+        <button class="btn btn-light" onclick="showPage('home')">← ត្រឡប់</button>
+    </div>
 
-  <!-- SETTINGS -->
-  <div class="settings">
+    <div class="level-map">
+        <p style="color:var(--muted);margin-bottom:15px">
+            🔓 កម្រិតនឹងដោះសោនៅពេលអ្នកឆ្លងកាត់កម្រិតមុន។
+        </p>
 
-    <select id="operation">
-      <option value="mix">🔢 លាយគ្រប់ប្រភេទ</option>
-      <option value="multiply">✖️ គុណ</option>
-      <option value="divide">➗ ចែក</option>
-      <option value="add">➕ បូក</option>
-      <option value="subtract">➖ ដក</option>
-    </select>
+        <div class="levels" id="levelsContainer"></div>
+    </div>
 
-    <select id="level">
-      <option value="easy">⭐ ងាយ</option>
-      <option value="medium" selected>⭐⭐ មធ្យម</option>
-      <option value="hard">⭐⭐⭐ ពិបាក</option>
-    </select>
+</section>
 
-    <button class="reset-btn" onclick="resetGame()">
-      🔄 ចាប់ផ្ដើមថ្មី
-    </button>
 
-  </div>
+<!-- GAME -->
+<section id="gamePage" class="page">
 
-  <div class="footer">
-    🎓 ល្បែងសម្រាប់ហាត់ជំនាញគណិតវិទ្យា
-  </div>
+    <div class="game-card">
+
+        <div class="game-top">
+            <div class="game-top-row">
+                <div>
+                    <b id="gameCategory">🧠 សំណួរ</b>
+                    <div style="font-size:12px;margin-top:3px">
+                        កម្រិត <span id="gameLevel">1</span>
+                    </div>
+                </div>
+
+                <div>
+                    ⭐ <span id="gameScore">0</span>
+                </div>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" id="gameProgress"></div>
+            </div>
+        </div>
+
+        <div class="game-body">
+
+            <div class="question-number" id="questionNumber">
+                សំណួរ 1
+            </div>
+
+            <div class="question" id="questionText">
+                សំណួរ...
+            </div>
+
+            <div class="answers" id="answersContainer"></div>
+
+            <div class="feedback" id="feedback"></div>
+
+            <div class="game-actions">
+                <button class="btn btn-light" onclick="showPage('home')">
+                    🏠 ចេញ
+                </button>
+
+                <button class="btn btn-primary hidden" id="nextBtn" onclick="nextQuestion()">
+                    បន្ត ➜
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+
+<!-- WHEEL -->
+<section id="wheelPage" class="page">
+
+    <div class="section-title">
+        <h2>🎡 កងបង្វិលចំណេះដឹង</h2>
+        <button class="btn btn-light" onclick="showPage('home')">← ត្រឡប់</button>
+    </div>
+
+    <div class="wheel-area">
+
+        <p style="color:var(--muted)">
+            បង្វិលកង ហើយឆ្លើយសំណួរដើម្បីទទួល ⭐
+        </p>
+
+        <div class="pointer">🔻</div>
+
+        <div class="wheel" id="wheel">
+            <div class="wheel-center">🎯</div>
+        </div>
+
+        <button class="btn btn-primary" id="spinBtn" onclick="spinWheel()">
+            🎡 បង្វិលកង
+        </button>
+
+        <div class="wheel-result" id="wheelResult"></div>
+
+    </div>
+
+</section>
+
+
+<!-- WORD GAME -->
+<section id="wordPage" class="page">
+
+    <div class="section-title">
+        <h2>🔤 ហ្គេមរៀបពាក្យ</h2>
+        <button class="btn btn-light" onclick="showPage('home')">← ត្រឡប់</button>
+    </div>
+
+    <div class="game-card">
+        <div class="game-body word-game">
+
+            <div class="question-number">
+                រៀបអក្សរខាងក្រោមឱ្យក្លាយជាពាក្យត្រឹមត្រូវ
+            </div>
+
+            <div class="scrambled" id="scrambledWord">
+                -
+            </div>
+
+            <input
+                id="wordInput"
+                class="word-input"
+                placeholder="វាយពាក្យនៅទីនេះ..."
+                autocomplete="off"
+            >
+
+            <br><br>
+
+            <button class="btn btn-primary" onclick="checkWord()">
+                ✅ ពិនិត្យចម្លើយ
+            </button>
+
+            <div class="feedback" id="wordFeedback"></div>
+
+            <button class="btn btn-success hidden" id="wordNext" onclick="nextWord()">
+                បន្ត ➜
+            </button>
+
+        </div>
+    </div>
+
+</section>
+
+
+<!-- PICTURE GAME -->
+<section id="picturePage" class="page">
+
+    <div class="section-title">
+        <h2>🖼️ ទាយរូបភាព</h2>
+        <button class="btn btn-light" onclick="showPage('home')">← ត្រឡប់</button>
+    </div>
+
+    <div class="game-card">
+        <div class="game-body" style="text-align:center">
+
+            <div class="guess-image" id="guessImage">🐱</div>
+
+            <div class="question" style="font-size:22px">
+                តើរូបនេះជាអ្វី?
+            </div>
+
+            <div class="answers" id="pictureAnswers"></div>
+
+            <div class="feedback" id="pictureFeedback"></div>
+
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ERROR GAME -->
+<section id="errorPage" class="page">
+
+    <div class="section-title">
+        <h2>🔍 ស្វែងរកកំហុស</h2>
+        <button class="btn btn-light" onclick="showPage('home')">← ត្រឡប់</button>
+    </div>
+
+    <div class="game-card">
+        <div class="game-body" style="text-align:center">
+
+            <p style="color:var(--muted)">
+                ជ្រើសរើសប្រយោគដែលត្រឹមត្រូវ
+            </p>
+
+            <div class="error-text" id="errorQuestion"></div>
+
+            <div class="answers" id="errorAnswers"></div>
+
+            <div class="feedback" id="errorFeedback"></div>
+
+        </div>
+    </div>
+
+</section>
+
+
+<!-- PROFILE -->
+<section id="profilePage" class="page">
+
+    <div class="section-title">
+        <h2>👤 ប្រវត្តិអ្នកប្រាជ្ញ</h2>
+        <button class="btn btn-light" onclick="showPage('home')">← ត្រឡប់</button>
+    </div>
+
+    <div class="profile">
+
+        <div class="profile-head">
+
+            <div class="avatar" id="profileAvatar">🧑‍🎓</div>
+
+            <div>
+                <h2 id="profileName">អ្នកប្រាជ្ញតូច</h2>
+                <p style="color:var(--muted)">
+                    កម្រិត <b id="profileLevel">1</b>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="progress-box">
+            <div style="display:flex;justify-content:space-between">
+                <span>ការរីកចម្រើន</span>
+                <span id="profileProgressText">0%</span>
+            </div>
+
+            <div class="progress-line">
+                <span id="profileProgress"></span>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>🏅 មេដាយ</h2>
+        </div>
+
+        <div class="badges" id="badgesContainer"></div>
+
+        <div class="section-title">
+            <h2>📊 ស្ថិតិ</h2>
+        </div>
+
+        <div class="stats" style="color:var(--text)">
+            <div class="stat" style="background:#f5f6ff">
+                <small>សំណួរឆ្លើយ</small>
+                <strong id="statQuestions">0</strong>
+            </div>
+
+            <div class="stat" style="background:#f5f6ff">
+                <small>ចម្លើយត្រូវ</small>
+                <strong id="statCorrect">0</strong>
+            </div>
+
+            <div class="stat" style="background:#f5f6ff">
+                <small>កម្រិតឆ្លង</small>
+                <strong id="statCompleted">0</strong>
+            </div>
+
+            <div class="stat" style="background:#f5f6ff">
+                <small>Streak ល្អបំផុត</small>
+                <strong id="statBestStreak">0</strong>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- UNLOCKS -->
+<section id="unlocksPage" class="page">
+
+    <div class="section-title">
+        <h2>🎁 របស់ដែលអាចដោះសោ</h2>
+        <button class="btn btn-light" onclick="showPage('home')">← ត្រឡប់</button>
+    </div>
+
+    <div class="unlock-grid" id="unlockContainer"></div>
+
+</section>
+
+
+<!-- LEADERBOARD -->
+<section id="leaderPage" class="page">
+
+    <div class="section-title">
+        <h2>🏆 តារាងពិន្ទុ</h2>
+        <button class="btn btn-light" onclick="showPage('home')">← ត្រឡប់</button>
+    </div>
+
+    <div class="table-wrap">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ចំណាត់ថ្នាក់</th>
+                    <th>អ្នកលេង</th>
+                    <th>⭐ ពិន្ទុ</th>
+                    <th>🏆 កម្រិត</th>
+                </tr>
+            </thead>
+
+            <tbody id="leaderboardBody"></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+</main>
+
+<footer>
+    © 2026 ដំណើរអ្នកប្រាជ្ញតូច • ហ្គេមអប់រំសម្រាប់សិស្សបឋម
+</footer>
 
 </div>
 
+
+<!-- SETTINGS MODAL -->
+<div class="modal" id="settingsModal">
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+            <h2>⚙️ ការកំណត់</h2>
+            <button class="close" onclick="closeModal('settingsModal')">✕</button>
+        </div>
+
+        <div class="setting-row">
+            <span>👤 ឈ្មោះអ្នកលេង</span>
+            <input type="text" id="nameInput" placeholder="ឈ្មោះ">
+        </div>
+
+        <div class="setting-row">
+            <span>🔊 សំឡេង</span>
+            <input type="checkbox" id="soundToggle" checked>
+        </div>
+
+        <div class="setting-row">
+            <span>🌙 Mode ងងឹត</span>
+            <input type="checkbox" id="darkToggle" onchange="toggleDark()">
+        </div>
+
+        <br>
+
+        <button class="btn btn-primary" onclick="saveSettings()">
+            💾 រក្សាទុក
+        </button>
+
+        <button class="btn btn-danger" onclick="resetGame()">
+            🗑️ លុបទិន្នន័យទាំងអស់
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- DAILY REWARD MODAL -->
+<div class="modal" id="rewardModal">
+
+    <div class="modal-box reward">
+
+        <div class="modal-head">
+            <h2>🎁 រង្វាន់ប្រចាំថ្ងៃ</h2>
+            <button class="close" onclick="closeModal('rewardModal')">✕</button>
+        </div>
+
+        <div class="reward-icon">🎁</div>
+
+        <h2>អបអរសាទរ! 🎉</h2>
+
+        <p style="color:var(--muted);margin:10px 0 20px">
+            អ្នកបានទទួលរង្វាន់ប្រចាំថ្ងៃ
+        </p>
+
+        <h2 style="color:#f59e0b">
+            +100 ⭐
+        </h2>
+
+        <br>
+
+        <button class="btn btn-primary" onclick="closeModal('rewardModal')">
+            🎉 ល្អណាស់!
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
 <script>
 
-let score = 0;
-let correct = 0;
-let questionCount = 0;
+/* =========================================================
+   GAME DATA
+========================================================= */
 
-let currentAnswer = null;
-let isSpinning = false;
-let answered = false;
+const questions = {
 
-const maxQuestions = 20;
+    khmer: [
 
-const wheel = document.getElementById("wheel");
-const spinBtn = document.getElementById("spinBtn");
-const question = document.getElementById("question");
-const answers = document.getElementById("answers");
-const result = document.getElementById("result");
-const nextBtn = document.getElementById("nextBtn");
+        {
+            q:"តើពាក្យណាមួយជានាម?",
+            a:["រត់","សៀវភៅ","លឿន","អាន"],
+            c:1
+        },
+
+        {
+            q:"តើពាក្យណាមានន័យផ្ទុយនឹង «ធំ»?",
+            a:["ខ្ពស់","តូច","វែង","ធ្ងន់"],
+            c:1
+        },
+
+        {
+            q:"តើពាក្យណាជាកិរិយាសព្ទ?",
+            a:["សាលា","សិស្ស","អាន","ស្អាត"],
+            c:2
+        },
+
+        {
+            q:"តើមួយណាជាប្រយោគពេញលេញ?",
+            a:["ក្មេងប្រុស","ក្មេងប្រុសអានសៀវភៅ។","សៀវភៅល្អ","អាន"],
+            c:1
+        },
+
+        {
+            q:"ពាក្យ «លឿន» មានន័យដូចម្តេច?",
+            a:["យឺត","ឆាប់","ធ្ងន់","តូច"],
+            c:1
+        },
+
+        {
+            q:"តើពាក្យណាមានន័យផ្ទុយនឹង «ក្តៅ»?",
+            a:["ត្រជាក់","ខ្ពស់","ភ្លឺ","ធំ"],
+            c:0
+        },
+
+        {
+            q:"តើអ្វីជាកន្លែងដែលសិស្សទៅរៀន?",
+            a:["ផ្សារ","សាលារៀន","មន្ទីរពេទ្យ","សួនច្បារ"],
+            c:1
+        },
+
+        {
+            q:"តើអ្នកណាជាអ្នកបង្រៀនសិស្ស?",
+            a:["គ្រូ","កសិករ","អ្នកលក់","អ្នកបើកបរ"],
+            c:0
+        }
+
+    ],
+
+    science: [
+
+        {
+            q:"តើរុក្ខជាតិត្រូវការអ្វីដើម្បីលូតលាស់?",
+            a:["ទឹក និងពន្លឺ","ថ្ម","ដែក","ក្រដាស"],
+            c:0
+        },
+
+        {
+            q:"តើសរីរាង្គណាដែលជួយឱ្យយើងមើលឃើញ?",
+            a:["ត្រចៀក","ភ្នែក","ច្រមុះ","ដៃ"],
+            c:1
+        },
+
+        {
+            q:"តើសត្វណាមួយអាចហោះបាន?",
+            a:["ត្រី","មាន់","ឆ្មា","គោ"],
+            c:1
+        },
+
+        {
+            q:"តើទឹកកកជាសភាពអ្វីនៃទឹក?",
+            a:["រឹង","រាវ","ឧស្ម័ន","ផ្សែង"],
+            c:0
+        },
+
+        {
+            q:"តើព្រះអាទិត្យផ្តល់អ្វីដល់ផែនដី?",
+            a:["ពន្លឺ និងកម្តៅ","ភ្លៀង","ខ្យល់","ថ្ម"],
+            c:0
+        },
+
+        {
+            q:"តើត្រីរស់នៅទីណា?",
+            a:["ក្នុងទឹក","លើដើមឈើ","ក្នុងដី","លើមេឃ"],
+            c:0
+        },
+
+        {
+            q:"តើសរីរាង្គណាជួយឱ្យយើងស្តាប់?",
+            a:["ភ្នែក","ត្រចៀក","ដៃ","ជើង"],
+            c:1
+        },
+
+        {
+            q:"តើភ្លៀងកើតមកពីអ្វី?",
+            a:["ពពក","ដី","ភ្នំ","ថ្ម"],
+            c:0
+        }
+
+    ],
+
+    general: [
+
+        {
+            q:"តើប្រទេសកម្ពុជាស្ថិតនៅទ្វីបណា?",
+            a:["អាស៊ី","អឺរ៉ុប","អាហ្វ្រិក","អាមេរិក"],
+            c:0
+        },
+
+        {
+            q:"តើរាជធានីនៃប្រទេសកម្ពុជាគឺ?",
+            a:["សៀមរាប","ភ្នំពេញ","បាត់ដំបង","កំពង់ចាម"],
+            c:1
+        },
+
+        {
+            q:"តើប្រាសាទអង្គរវត្តស្ថិតនៅខេត្តណា?",
+            a:["កំពង់ធំ","សៀមរាប","កណ្ដាល","ព្រះវិហារ"],
+            c:1
+        },
+
+        {
+            q:"តើទង់ជាតិកម្ពុជាមានប៉ុន្មានពណ៌?",
+            a:["2","3","4","5"],
+            c:1
+        },
+
+        {
+            q:"តើថ្ងៃមួយមានប៉ុន្មានម៉ោង?",
+            a:["12","18","24","30"],
+            c:2
+        },
+
+        {
+            q:"តើមួយសប្តាហ៍មានប៉ុន្មានថ្ងៃ?",
+            a:["5","6","7","8"],
+            c:2
+        },
+
+        {
+            q:"តើភពណាដែលយើងរស់នៅ?",
+            a:["ភពព្រះអង្គារ","ផែនដី","ភពសុក្រ","ភពពុធ"],
+            c:1
+        },
+
+        {
+            q:"តើមហាសមុទ្រមានទឹកប្រភេទណា?",
+            a:["ទឹកសាប","ទឹកប្រៃ","ទឹកកក","ទឹកផ្អែម"],
+            c:1
+        }
+
+    ],
+
+    math: []
+
+};
 
 
-// =============================
-// RANDOM NUMBER
-// =============================
+/* =========================================================
+   GENERATE 100 LEVELS
+========================================================= */
 
-function randomNumber(min, max) {
+function generateMathQuestions(){
 
-  return Math.floor(
-    Math.random() * (max - min + 1)
-  ) + min;
+    const arr=[];
+
+    for(let i=1;i<=100;i++){
+
+        let a,b,op,answer;
+
+        if(i<=25){
+
+            a=randomInt(1,20);
+            b=randomInt(1,20);
+            op="+";
+            answer=a+b;
+
+        }else if(i<=50){
+
+            a=randomInt(10,60);
+            b=randomInt(1,a);
+            op="-";
+            answer=a-b;
+
+        }else if(i<=75){
+
+            a=randomInt(2,12);
+            b=randomInt(2,12);
+            op="×";
+            answer=a*b;
+
+        }else{
+
+            b=randomInt(2,12);
+            answer=randomInt(2,12);
+            a=b*answer;
+            op="÷";
+
+        }
+
+        const options=[
+            answer,
+            answer+randomInt(1,5),
+            Math.max(0,answer-randomInt(1,5)),
+            answer+randomInt(6,10)
+        ];
+
+        shuffle(options);
+
+        arr.push({
+            q:`${a} ${op} ${b} = ?`,
+            a:options.map(String),
+            c:options.indexOf(answer)
+        });
+
+    }
+
+    return arr;
+}
+
+questions.math=generateMathQuestions();
+
+
+/* =========================================================
+   WORD DATA
+========================================================= */
+
+const words=[
+    "សាលារៀន",
+    "សៀវភៅ",
+    "កុមារ",
+    "គ្រូ",
+    "មិត្តភក្តិ",
+    "ការសិក្សា",
+    "ចំណេះដឹង",
+    "គណិតវិទ្យា",
+    "វិទ្យាសាស្ត្រ",
+    "ផ្លែឈើ",
+    "សត្វ",
+    "រុក្ខជាតិ",
+    "ប្រទេស",
+    "កម្ពុជា",
+    "គ្រួសារ",
+    "មាតាបិតា",
+    "សេចក្តីស្រឡាញ់",
+    "សាមគ្គីភាព",
+    "ការងារ",
+    "អនាគត"
+];
+
+
+/* =========================================================
+   PICTURE DATA
+========================================================= */
+
+const pictures=[
+    {emoji:"🐱",answer:"ឆ្មា",options:["ឆ្មា","ឆ្កែ","គោ","ត្រី"]},
+    {emoji:"🐶",answer:"ឆ្កែ",options:["សេះ","ឆ្កែ","មាន់","ឆ្មា"]},
+    {emoji:"🐟",answer:"ត្រី",options:["ត្រី","បក្សី","ឆ្មា","គោ"]},
+    {emoji:"🐔",answer:"មាន់",options:["មាន់","ត្រី","សេះ","ឆ្កែ"]},
+    {emoji:"🍎",answer:"ផ្លែប៉ោម",options:["ចេក","ស្វាយ","ផ្លែប៉ោម","ឪឡឹក"]},
+    {emoji:"🍌",answer:"ចេក",options:["ចេក","ក្រូច","ផ្លែប៉ោម","ស្វាយ"]},
+    {emoji:"🌳",answer:"ដើមឈើ",options:["ផ្ទះ","ដើមឈើ","ឡាន","សៀវភៅ"]},
+    {emoji:"🚲",answer:"កង់",options:["ឡាន","កង់","ទូក","យន្តហោះ"]},
+    {emoji:"📚",answer:"សៀវភៅ",options:["ប៊ិច","សៀវភៅ","កៅអី","តុ"]},
+    {emoji:"🏫",answer:"សាលារៀន",options:["ផ្ទះ","ផ្សារ","សាលារៀន","មន្ទីរពេទ្យ"]}
+];
+
+
+/* =========================================================
+   ERROR DATA
+========================================================= */
+
+const errorGames=[
+    {
+        q:"តើប្រយោគណាសរសេរត្រឹមត្រូវ?",
+        options:[
+            "ខ្ញុំទៅសាលារៀន។",
+            "ខ្ញុំ ទៅ សាលារៀន។",
+            "ខ្ញុំទៅសាលារៀន",
+            "ខ្ញុំ ទៅសាលារៀន"
+        ],
+        c:0
+    },
+    {
+        q:"តើមួយណាត្រឹមត្រូវ?",
+        options:[
+            "សិស្សអានសៀវភៅ។",
+            "សិស្សអានសៀវភៅ",
+            "សិស្ស អានសៀវភៅ។",
+            "សិស្សអាន សៀវភៅ"
+        ],
+        c:0
+    },
+    {
+        q:"តើមួយណាជាពាក្យត្រឹមត្រូវ?",
+        options:[
+            "សិក្សា",
+            "សិកសា",
+            "សិក្ស",
+            "សិការសា"
+        ],
+        c:0
+    }
+];
+
+
+/* =========================================================
+   PLAYER DATA
+========================================================= */
+
+const defaultPlayer={
+    name:"អ្នកប្រាជ្ញតូច",
+
+    score:0,
+
+    level:1,
+
+    lives:3,
+
+    streak:0,
+
+    bestStreak:0,
+
+    questionsAnswered:0,
+
+    correctAnswers:0,
+
+    completedLevels:[],
+
+    unlockedCharacters:["🧑‍🎓"],
+
+    character:"🧑‍🎓",
+
+    unlockedBackgrounds:["🌈"],
+
+    background:"🌈",
+
+    badges:[],
+
+    lastDailyReward:"",
+
+    sound:true,
+
+    dark:false,
+
+    leaderboard:[]
+};
+
+let player=loadPlayer();
+
+let currentCategory="general";
+let currentLevel=1;
+let currentQuestionIndex=0;
+let currentQuestions=[];
+let answered=false;
+
+let currentWord="";
+let wordAnswered=false;
+
+let pictureIndex=0;
+
+let errorIndex=0;
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function loadPlayer(){
+
+    try{
+
+        const saved=localStorage.getItem("littleScholarGame");
+
+        if(saved){
+
+            return Object.assign(
+                {},
+                defaultPlayer,
+                JSON.parse(saved)
+            );
+
+        }
+
+    }catch(e){}
+
+    return JSON.parse(JSON.stringify(defaultPlayer));
+}
+
+
+function savePlayer(){
+
+    localStorage.setItem(
+        "littleScholarGame",
+        JSON.stringify(player)
+    );
+
+    updateHeader();
+}
+
+
+function updateHeader(){
+
+    document.getElementById("topScore").textContent=
+        player.score.toLocaleString();
+
+    document.getElementById("topLevel").textContent=
+        player.level;
+
+    document.getElementById("topLives").textContent=
+        "❤️".repeat(player.lives)+"🖤".repeat(3-player.lives);
+
+    document.getElementById("topStreak").textContent=
+        player.streak;
+
+    document.getElementById("heroCharacter").textContent=
+        player.character;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showPage(page){
+
+    document.querySelectorAll(".page")
+        .forEach(p=>p.classList.remove("active"));
+
+    const el=document.getElementById(page+"Page");
+
+    if(el){
+        el.classList.add("active");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    updateHeader();
+
+    if(page==="levels") renderLevels();
+    if(page==="profile") renderProfile();
+    if(page==="unlocks") renderUnlocks();
+    if(page==="leader") renderLeaderboard();
+}
+
+
+function continueGame(){
+
+    if(player.lives<=0){
+
+        player.lives=3;
+        savePlayer();
+
+    }
+
+    startGame(currentCategory,player.level);
+}
+
+
+/* =========================================================
+   LEVEL SYSTEM
+========================================================= */
+
+function showLevels(){
+
+    renderLevels();
+    showPage("levels");
 
 }
 
 
-// =============================
-// GENERATE QUESTION
-// =============================
+function renderLevels(){
 
-function generateQuestion() {
+    const container=document.getElementById("levelsContainer");
 
-  const operation =
-    document.getElementById("operation").value;
+    container.innerHTML="";
 
-  const level =
-    document.getElementById("level").value;
+    for(let i=1;i<=100;i++){
 
-  let op = operation;
+        const btn=document.createElement("button");
 
-  // Mix
-  if (op === "mix") {
+        btn.className="level";
 
-    const operations = [
-      "multiply",
-      "divide",
-      "add",
-      "subtract"
+        const unlocked=i<=player.level;
+
+        const completed=player.completedLevels.includes(i);
+
+        if(completed){
+
+            btn.classList.add("completed");
+
+        }else if(unlocked){
+
+            btn.classList.add("unlocked");
+
+        }else{
+
+            btn.classList.add("locked");
+
+        }
+
+        if(i===player.level){
+
+            btn.classList.add("current");
+
+        }
+
+        btn.innerHTML=
+            `${completed?"✓ ":""}${i}`;
+
+        if(unlocked){
+
+            btn.onclick=()=>startGame(currentCategory,i);
+
+        }
+
+        container.appendChild(btn);
+
+    }
+
+}
+
+
+/* =========================================================
+   START GAME
+========================================================= */
+
+function startCategory(category){
+
+    currentCategory=category;
+
+    startGame(category,player.level);
+
+}
+
+
+function startGame(category,level){
+
+    if(level>player.level){
+
+        toast("🔒 សូមឆ្លងកាត់កម្រិតមុនសិន!");
+
+        return;
+
+    }
+
+    if(player.lives<=0){
+
+        toast("❤️ អស់ជីវិត! សូមចូលលេងម្តងទៀតដើម្បីទទួលជីវិត។");
+
+        player.lives=3;
+
+        savePlayer();
+
+    }
+
+    currentCategory=category;
+    currentLevel=level;
+    currentQuestionIndex=0;
+    answered=false;
+
+    currentQuestions=getQuestionsForLevel(category,level);
+
+    document.getElementById("gameCategory").textContent=
+        categoryName(category);
+
+    document.getElementById("gameLevel").textContent=
+        level;
+
+    showPage("game");
+
+    renderQuestion();
+
+}
+
+
+function getQuestionsForLevel(category,level){
+
+    const base=questions[category];
+
+    if(category==="math"){
+
+        return [
+            base[(level-1)%base.length],
+            base[(level)%base.length],
+            base[(level+1)%base.length]
+        ];
+
+    }
+
+    return [
+        base[(level-1)%base.length],
+        base[(level)%base.length],
+        base[(level+1)%base.length]
     ];
 
-    op =
-      operations[
-        randomNumber(0, operations.length - 1)
-      ];
-  }
-
-  let a, b, answer, symbol;
-
-  // Difficulty
-  let max;
-
-  if (level === "easy") {
-    max = 10;
-  }
-
-  else if (level === "medium") {
-    max = 20;
-  }
-
-  else {
-    max = 50;
-  }
+}
 
 
-  // MULTIPLY
-  if (op === "multiply") {
+function categoryName(category){
 
-    a = randomNumber(2, max);
-    b = randomNumber(2, 10);
+    const names={
+        khmer:"🔤 ភាសាខ្មែរ",
+        math:"🔢 គណិតវិទ្យា",
+        science:"🌱 វិទ្យាសាស្ត្រ",
+        general:"🌍 ចំណេះដឹងទូទៅ"
+    };
 
-    answer = a * b;
-    symbol = "×";
-
-  }
-
-
-  // DIVIDE
-  else if (op === "divide") {
-
-    b = randomNumber(2, 10);
-    answer = randomNumber(2, max);
-
-    a = b * answer;
-
-    symbol = "÷";
-
-  }
-
-
-  // ADD
-  else if (op === "add") {
-
-    a = randomNumber(1, max);
-    b = randomNumber(1, max);
-
-    answer = a + b;
-    symbol = "+";
-
-  }
-
-
-  // SUBTRACT
-  else {
-
-    a = randomNumber(1, max);
-    b = randomNumber(1, max);
-
-    // Avoid negative
-    if (b > a) {
-      [a, b] = [b, a];
-    }
-
-    answer = a - b;
-    symbol = "−";
-
-  }
-
-
-  currentAnswer = answer;
-
-  question.textContent =
-    `${a} ${symbol} ${b} = ?`;
-
-  createAnswers(answer);
+    return names[category]||"🧠 ចំណេះដឹង";
 
 }
 
 
-// =============================
-// CREATE 3 ANSWERS
-// =============================
+/* =========================================================
+   QUESTION
+========================================================= */
 
-function createAnswers(correctAnswer) {
+function renderQuestion(){
 
-  let choices = new Set();
+    const q=currentQuestions[currentQuestionIndex];
 
-  choices.add(correctAnswer);
+    answered=false;
 
-  while (choices.size < 3) {
+    document.getElementById("questionNumber").textContent=
+        `សំណួរ ${currentQuestionIndex+1} / ${currentQuestions.length}`;
 
-    let offset =
-      randomNumber(1, 10);
+    document.getElementById("questionText").textContent=
+        q.q;
 
-    // Randomly add or subtract
-    if (Math.random() > 0.5) {
-      offset = -offset;
-    }
+    document.getElementById("gameScore").textContent=
+        player.score.toLocaleString();
 
-    let wrong =
-      correctAnswer + offset;
+    document.getElementById("feedback").textContent="";
 
-    if (wrong >= 0 && wrong !== correctAnswer) {
-      choices.add(wrong);
-    }
+    document.getElementById("feedback").className="feedback";
 
-  }
+    document.getElementById("nextBtn").classList.add("hidden");
 
-  let array =
-    Array.from(choices);
+    const progress=
+        ((currentQuestionIndex)/currentQuestions.length)*100;
 
-  // Shuffle
-  array.sort(() => Math.random() - 0.5);
+    document.getElementById("gameProgress").style.width=
+        progress+"%";
 
-  answers.innerHTML = "";
+    const container=document.getElementById("answersContainer");
 
-  array.forEach(value => {
+    container.innerHTML="";
 
-    const btn =
-      document.createElement("button");
+    q.a.forEach((answer,index)=>{
 
-    btn.className = "answer";
+        const btn=document.createElement("button");
 
-    btn.textContent = value;
+        btn.className="answer";
 
-    btn.onclick = () =>
-      checkAnswer(btn, value);
+        btn.textContent=answer;
 
-    answers.appendChild(btn);
+        btn.onclick=()=>answerQuestion(index,btn);
 
-  });
-
-}
-
-
-// =============================
-// CHECK ANSWER
-// =============================
-
-function checkAnswer(button, value) {
-
-  if (answered) return;
-
-  answered = true;
-
-  const allButtons =
-    document.querySelectorAll(".answer");
-
-  allButtons.forEach(btn => {
-    btn.disabled = true;
-  });
-
-
-  if (value === currentAnswer) {
-
-    button.classList.add("correct");
-
-    score += 10;
-
-    correct++;
-
-    result.innerHTML =
-      `<span class="correct-text">
-        🎉 ត្រឹមត្រូវ! +10 ពិន្ទុ
-      </span>`;
-
-  }
-
-  else {
-
-    button.classList.add("wrong");
-
-    allButtons.forEach(btn => {
-
-      if (
-        Number(btn.textContent) ===
-        currentAnswer
-      ) {
-        btn.classList.add("correct");
-      }
+        container.appendChild(btn);
 
     });
 
-    result.innerHTML =
-      `<span class="wrong-text">
-        ❌ មិនត្រឹមត្រូវ! ចម្លើយគឺ ${currentAnswer}
-      </span>`;
-
-  }
+}
 
 
-  updateScore();
+function answerQuestion(index,clicked){
 
-  nextBtn.style.display = "block";
+    if(answered)return;
+
+    answered=true;
+
+    const q=currentQuestions[currentQuestionIndex];
+
+    const buttons=
+        document.querySelectorAll("#answersContainer .answer");
+
+    buttons.forEach((btn,i)=>{
+
+        btn.disabled=true;
+
+        if(i===q.c){
+            btn.classList.add("correct");
+        }
+
+    });
+
+    player.questionsAnswered++;
+
+    if(index===q.c){
+
+        clicked.classList.add("correct");
+
+        player.correctAnswers++;
+
+        player.score+=10+currentLevel;
+
+        player.streak++;
+
+        if(player.streak>player.bestStreak){
+            player.bestStreak=player.streak;
+        }
+
+        document.getElementById("feedback").textContent=
+            randomGood();
+
+        document.getElementById("feedback").className=
+            "feedback good";
+
+        playCorrect();
+
+        checkBadges();
+
+    }else{
+
+        clicked.classList.add("wrong");
+
+        player.lives=Math.max(0,player.lives-1);
+
+        player.streak=0;
+
+        document.getElementById("feedback").textContent=
+            "💡 មិនអីទេ! សាកល្បងម្ដងទៀត។";
+
+        document.getElementById("feedback").className=
+            "feedback bad";
+
+        playWrong();
+
+    }
+
+    savePlayer();
+
+    document.getElementById("nextBtn").classList.remove("hidden");
 
 }
 
 
-// =============================
-// NEW QUESTION
-// =============================
+function nextQuestion(){
 
-function newQuestion() {
+    currentQuestionIndex++;
 
-  if (questionCount >= maxQuestions) {
+    if(currentQuestionIndex>=currentQuestions.length){
 
-    showFinalResult();
+        finishLevel();
 
-    return;
-  }
+        return;
 
-  questionCount++;
+    }
 
-  answered = false;
-
-  result.innerHTML = "";
-
-  nextBtn.style.display = "none";
-
-  generateQuestion();
-
-  updateScore();
+    renderQuestion();
 
 }
 
 
-// =============================
-// SPIN WHEEL
-// =============================
+function finishLevel(){
 
-function spinWheel() {
+    if(!player.completedLevels.includes(currentLevel)){
 
-  if (isSpinning) return;
+        player.completedLevels.push(currentLevel);
 
-  if (questionCount >= maxQuestions) {
+    }
 
-    showFinalResult();
+    if(currentLevel>=player.level && player.level<100){
 
-    return;
-  }
+        player.level=currentLevel+1;
 
-  isSpinning = true;
+    }
 
-  spinBtn.disabled = true;
+    player.score+=25;
 
-  const randomRotation =
-    1440 + randomNumber(0, 360);
+    unlockRewards();
 
-  wheel.style.transform =
-    `rotate(${randomRotation}deg)`;
+    savePlayer();
 
-
-  setTimeout(() => {
-
-    isSpinning = false;
-
-    spinBtn.disabled = false;
-
-    newQuestion();
-
-  }, 4200);
-
-}
-
-
-// =============================
-// UPDATE SCORE
-// =============================
-
-function updateScore() {
-
-  document.getElementById("score")
-    .textContent = score;
-
-  document.getElementById("correct")
-    .textContent = correct;
-
-  document.getElementById("questionNumber")
-    .textContent = questionCount;
-
-}
-
-
-// =============================
-// FINAL RESULT
-// =============================
-
-function showFinalResult() {
-
-  let percentage =
-    Math.round(
-      (correct / maxQuestions) * 100
+    celebrate(
+        `🎉 អបអរសាទរ!`,
+        `អ្នកបានឆ្លងកាត់កម្រិត ${currentLevel}!`
     );
 
-  let message;
-
-  if (percentage >= 90) {
-    message = "🏆 អស្ចារ្យណាស់!";
-  }
-
-  else if (percentage >= 70) {
-    message = "🌟 ល្អណាស់!";
-  }
-
-  else if (percentage >= 50) {
-    message = "👍 ខិតខំបន្ថែមទៀត!";
-  }
-
-  else {
-    message = "💪 កុំបោះបង់! សាកល្បងម្ដងទៀត!";
-  }
+}
 
 
-  question.textContent =
-    "🎊 ចប់ការប្រកួត!";
+/* =========================================================
+   REWARDS
+========================================================= */
 
-  answers.innerHTML = "";
+const characters=[
+    {level:1,icon:"🧑‍🎓",name:"សិស្សតូច"},
+    {level:5,icon:"👨‍🚀",name:"អ្នកអវកាស"},
+    {level:10,icon:"🧙",name:"អ្នកប្រាជ្ញ"},
+    {level:20,icon:"🦸",name:"វីរបុរស"},
+    {level:35,icon:"🥷",name:"អ្នកចម្បាំង"},
+    {level:50,icon:"👑",name:"ម្ចាស់ក្សត្រ"},
+    {level:75,icon:"🧚",name:"ទេពអប្សរ"},
+    {level:100,icon:"🏆",name:"ជើងឯក"}
+];
 
-  result.innerHTML = `
-    <div style="font-size:24px; margin:15px;">
-      ${message}
-    </div>
+const backgrounds=[
+    {level:1,icon:"🌈",name:"ឥន្ទធនូ"},
+    {level:10,icon:"🌳",name:"ព្រៃបៃតង"},
+    {level:25,icon:"🏝️",name:"កោះស្រស់ស្អាត"},
+    {level:50,icon:"🚀",name:"អវកាស"},
+    {level:75,icon:"🏰",name:"ប្រាសាទវេទមន្ត"},
+    {level:100,icon:"🌟",name:"ពិភពតារា"}
+];
 
-    <div>
-      ពិន្ទុ៖ <strong>${score}</strong>
-    </div>
 
-    <div>
-      ត្រឹមត្រូវ៖ <strong>${correct}/${maxQuestions}</strong>
-    </div>
+function unlockRewards(){
 
-    <div>
-      លទ្ធផល៖ <strong>${percentage}%</strong>
-    </div>
-  `;
+    characters.forEach(c=>{
 
-  nextBtn.style.display = "none";
+        if(
+            player.level>=c.level &&
+            !player.unlockedCharacters.includes(c.icon)
+        ){
 
-  spinBtn.disabled = true;
+            player.unlockedCharacters.push(c.icon);
+
+            toast(`🎁 ដោះសោតួអង្គថ្មី ${c.icon} ${c.name}`);
+
+        }
+
+    });
+
+    backgrounds.forEach(b=>{
+
+        if(
+            player.level>=b.level &&
+            !player.unlockedBackgrounds.includes(b.icon)
+        ){
+
+            player.unlockedBackgrounds.push(b.icon);
+
+        }
+
+    });
 
 }
 
 
-// =============================
-// RESET GAME
-// =============================
+function showUnlocks(){
 
-function resetGame() {
+    renderUnlocks();
 
-  score = 0;
-
-  correct = 0;
-
-  questionCount = 0;
-
-  currentAnswer = null;
-
-  answered = false;
-
-  isSpinning = false;
-
-  spinBtn.disabled = false;
-
-  wheel.style.transform =
-    "rotate(0deg)";
-
-  question.textContent =
-    "? × ? = ?";
-
-  answers.innerHTML = `
-    <button class="answer" disabled>?</button>
-    <button class="answer" disabled>?</button>
-    <button class="answer" disabled>?</button>
-  `;
-
-  result.innerHTML = "";
-
-  nextBtn.style.display = "none";
-
-  updateScore();
+    showPage("unlocks");
 
 }
 
 
-// =============================
-// START
-// =============================
+function renderUnlocks(){
 
-updateScore();
+    const container=document.getElementById("unlockContainer");
+
+    container.innerHTML="";
+
+    characters.forEach(c=>{
+
+        const unlocked=
+            player.unlockedCharacters.includes(c.icon);
+
+        const div=document.createElement("div");
+
+        div.className=
+            "unlock "+(unlocked?"active":"locked");
+
+        div.innerHTML=`
+            <div class="unlock-icon">
+                ${unlocked?c.icon:"🔒"}
+            </div>
+            <b>${c.name}</b>
+            <p style="font-size:11px;color:var(--muted)">
+                កម្រិត ${c.level}
+            </p>
+        `;
+
+        if(unlocked){
+
+            div.onclick=()=>{
+
+                player.character=c.icon;
+
+                savePlayer();
+
+                renderUnlocks();
+
+                toast(`🎉 បានជ្រើស ${c.name}`);
+
+            };
+
+        }
+
+        container.appendChild(div);
+
+    });
+
+    backgrounds.forEach(b=>{
+
+        const unlocked=
+            player.unlockedBackgrounds.includes(b.icon);
+
+        const div=document.createElement("div");
+
+        div.className=
+            "unlock "+(unlocked?"active":"locked");
+
+        div.innerHTML=`
+            <div class="unlock-icon">
+                ${unlocked?b.icon:"🔒"}
+            </div>
+            <b>${b.name}</b>
+            <p style="font-size:11px;color:var(--muted)">
+                កម្រិត ${b.level}
+            </p>
+        `;
+
+        if(unlocked){
+
+            div.onclick=()=>{
+
+                player.background=b.icon;
+
+                savePlayer();
+
+                toast(`🌟 បានជ្រើសផ្ទៃ ${b.name}`);
+
+            };
+
+        }
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+const badges=[
+    {
+        id:"first",
+        icon:"🌟",
+        name:"ចាប់ផ្តើម",
+        desc:"ឆ្លើយសំណួរដំបូង"
+    },
+    {
+        id:"ten",
+        icon:"🔥",
+        name:"កំពូល Streak",
+        desc:"Streak 10"
+    },
+    {
+        id:"score100",
+        icon:"⭐",
+        name:"អ្នកប្រមូលពិន្ទុ",
+        desc:"100 ពិន្ទុ"
+    },
+    {
+        id:"level10",
+        icon:"🏅",
+        name:"អ្នកពូកែ",
+        desc:"ដល់កម្រិត 10"
+    },
+    {
+        id:"level50",
+        icon:"👑",
+        name:"អ្នកឆ្នើម",
+        desc:"ដល់កម្រិត 50"
+    },
+    {
+        id:"perfect",
+        icon:"💎",
+        name:"ឥតខ្ចោះ",
+        desc:"ឆ្លើយត្រូវ 50"
+    },
+    {
+        id:"level100",
+        icon:"🏆",
+        name:"ជើងឯក",
+        desc:"ដល់កម្រិត 100"
+    },
+    {
+        id:"daily",
+        icon:"🎁",
+        name:"មិត្តប្រចាំថ្ងៃ",
+        desc:"ទទួលរង្វាន់ប្រចាំថ្ងៃ"
+    }
+];
+
+
+function checkBadges(){
+
+    if(player.questionsAnswered>=1)
+        addBadge("first");
+
+    if(player.streak>=10)
+        addBadge("ten");
+
+    if(player.score>=100)
+        addBadge("score100");
+
+    if(player.level>=10)
+        addBadge("level10");
+
+    if(player.level>=50)
+        addBadge("level50");
+
+    if(player.correctAnswers>=50)
+        addBadge("perfect");
+
+    if(player.level>=100)
+        addBadge("level100");
+
+}
+
+
+function addBadge(id){
+
+    if(!player.badges.includes(id)){
+
+        player.badges.push(id);
+
+        const b=badges.find(x=>x.id===id);
+
+        if(b){
+            toast(`🏅 ទទួលបានមេដាយ ${b.icon} ${b.name}`);
+        }
+
+    }
+
+}
+
+
+function renderProfile(){
+
+    document.getElementById("profileName").textContent=
+        player.name;
+
+    document.getElementById("profileLevel").textContent=
+        player.level;
+
+    document.getElementById("profileAvatar").textContent=
+        player.character;
+
+    const progress=
+        Math.min(100,(player.level/100)*100);
+
+    document.getElementById("profileProgress").style.width=
+        progress+"%";
+
+    document.getElementById("profileProgressText").textContent=
+        Math.round(progress)+"%";
+
+    document.getElementById("statQuestions").textContent=
+        player.questionsAnswered;
+
+    document.getElementById("statCorrect").textContent=
+        player.correctAnswers;
+
+    document.getElementById("statCompleted").textContent=
+        player.completedLevels.length;
+
+    document.getElementById("statBestStreak").textContent=
+        player.bestStreak;
+
+    const container=document.getElementById("badgesContainer");
+
+    container.innerHTML="";
+
+    badges.forEach(b=>{
+
+        const unlocked=player.badges.includes(b.id);
+
+        const div=document.createElement("div");
+
+        div.className=
+            "badge "+(unlocked?"":"locked");
+
+        div.innerHTML=`
+            <div class="badge-icon">
+                ${unlocked?b.icon:"🔒"}
+            </div>
+            <b>${b.name}</b>
+            <p style="font-size:11px;color:var(--muted)">
+                ${b.desc}
+            </p>
+        `;
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+/* =========================================================
+   DAILY REWARD
+========================================================= */
+
+function claimDailyReward(){
+
+    const today=
+        new Date().toISOString().slice(0,10);
+
+    if(player.lastDailyReward===today){
+
+        toast("🎁 អ្នកបានទទួលរង្វាន់ថ្ងៃនេះរួចហើយ!");
+
+        return;
+
+    }
+
+    player.lastDailyReward=today;
+
+    player.score+=100;
+
+    addBadge("daily");
+
+    savePlayer();
+
+    document.getElementById("rewardModal")
+        .classList.add("show");
+
+    document.getElementById("dailyBtn").textContent=
+        "✅ បានទទួលហើយ";
+
+}
+
+
+function updateDailyButton(){
+
+    const today=
+        new Date().toISOString().slice(0,10);
+
+    const btn=document.getElementById("dailyBtn");
+
+    if(player.lastDailyReward===today){
+
+        btn.textContent="✅ បានទទួលហើយ";
+
+        btn.disabled=true;
+
+    }else{
+
+        btn.textContent="🎁 ទទួលរង្វាន់";
+
+        btn.disabled=false;
+
+    }
+
+}
+
+
+/* =========================================================
+   WHEEL
+========================================================= */
+
+const wheelQuestions=[
+
+    {
+        q:"តើមួយសប្តាហ៍មានប៉ុន្មានថ្ងៃ?",
+        a:["5","6","7","8"],
+        c:2
+    },
+
+    {
+        q:"តើ 5 × 6 = ?",
+        a:["25","30","35","40"],
+        c:1
+    },
+
+    {
+        q:"តើរុក្ខជាតិត្រូវការអ្វីដើម្បីលូតលាស់?",
+        a:["ទឹក","ថ្ម","ដែក","ក្រដាស"],
+        c:0
+    },
+
+    {
+        q:"រាជធានីកម្ពុជាគឺ?",
+        a:["ភ្នំពេញ","សៀមរាប","កំពង់ចាម","បាត់ដំបង"],
+        c:0
+    },
+
+    {
+        q:"ពាក្យផ្ទុយនឹង «ធំ» គឺ?",
+        a:["ខ្ពស់","តូច","វែង","ធ្ងន់"],
+        c:1
+    },
+
+    {
+        q:"តើភ្នែកមានមុខងារអ្វី?",
+        a:["ស្តាប់","មើល","ដើរ","ដកដង្ហើម"],
+        c:1
+    },
+
+    {
+        q:"តើផែនដីវិលជុំវិញអ្វី?",
+        a:["ព្រះចន្ទ","ព្រះអាទិត្យ","ផ្កាយ","ពពក"],
+        c:1
+    },
+
+    {
+        q:"តើ 100 ÷ 10 = ?",
+        a:["5","10","20","100"],
+        c:1
+    }
+
+];
+
+let wheelRotation=0;
+let wheelSpinning=false;
+
+
+function openWheel(){
+
+    showPage("wheel");
+
+    document.getElementById("wheelResult").textContent="";
+
+}
+
+
+function spinWheel(){
+
+    if(wheelSpinning)return;
+
+    wheelSpinning=true;
+
+    document.getElementById("spinBtn").disabled=true;
+
+    const wheel=document.getElementById("wheel");
+
+    wheelRotation+=
+        1440+randomInt(0,360);
+
+    wheel.style.transform=
+        `rotate(${wheelRotation}deg)`;
+
+    setTimeout(()=>{
+
+        const q=
+            wheelQuestions[randomInt(0,wheelQuestions.length-1)];
+
+        showWheelQuestion(q);
+
+    },4100);
+
+}
+
+
+function showWheelQuestion(q){
+
+    wheelSpinning=false;
+
+    document.getElementById("spinBtn").disabled=false;
+
+    const result=document.getElementById("wheelResult");
+
+    result.innerHTML=`
+        <div style="margin-top:15px">
+            <b>${q.q}</b>
+
+            <div class="answers" style="margin-top:15px">
+
+                ${q.a.map((a,i)=>`
+                    <button
+                        class="answer"
+                        onclick="wheelAnswer(${i},${q.c},this)"
+                    >
+                        ${a}
+                    </button>
+                `).join("")}
+
+            </div>
+
+            <div id="wheelFeedback" class="feedback"></div>
+
+        </div>
+    `;
+
+}
+
+
+function wheelAnswer(index,correct,button){
+
+    const buttons=
+        document.querySelectorAll("#wheelResult .answer");
+
+    buttons.forEach(b=>b.disabled=true);
+
+    if(index===correct){
+
+        button.classList.add("correct");
+
+        player.score+=30;
+
+        player.streak++;
+
+        if(player.streak>player.bestStreak)
+            player.bestStreak=player.streak;
+
+        document.getElementById("wheelFeedback").textContent=
+            "🎉 ត្រូវហើយ! +30 ⭐";
+
+        document.getElementById("wheelFeedback").className=
+            "feedback good";
+
+        playCorrect();
+
+    }else{
+
+        button.classList.add("wrong");
+
+        player.streak=0;
+
+        document.getElementById("wheelFeedback").textContent=
+            "💡 ចម្លើយមិនត្រឹមត្រូវទេ។";
+
+        document.getElementById("wheelFeedback").className=
+            "feedback bad";
+
+        playWrong();
+
+    }
+
+    player.questionsAnswered++;
+
+    savePlayer();
+
+}
+
+
+/* =========================================================
+   WORD GAME
+========================================================= */
+
+let wordIndex=0;
+
+
+function openWordGame(){
+
+    showPage("word");
+
+    nextWord();
+
+}
+
+
+function nextWord(){
+
+    currentWord=
+        words[wordIndex%words.length];
+
+    wordIndex++;
+
+    const chars=[...currentWord];
+
+    shuffle(chars);
+
+    document.getElementById("scrambledWord").textContent=
+        chars.join(" ");
+
+    document.getElementById("wordInput").value="";
+
+    document.getElementById("wordFeedback").textContent="";
+
+    document.getElementById("wordNext").classList.add("hidden");
+
+    wordAnswered=false;
+
+}
+
+
+function checkWord(){
+
+    if(wordAnswered)return;
+
+    const input=
+        document.getElementById("wordInput")
+            .value.trim();
+
+    if(!input){
+
+        toast("✏️ សូមវាយពាក្យសិន!");
+
+        return;
+
+    }
+
+    wordAnswered=true;
+
+    player.questionsAnswered++;
+
+    if(input===currentWord){
+
+        player.score+=20;
+
+        player.correctAnswers++;
+
+        player.streak++;
+
+        if(player.streak>player.bestStreak)
+            player.bestStreak=player.streak;
+
+        document.getElementById("wordFeedback").textContent=
+            "🎉 ពូកែណាស់! +20 ⭐";
+
+        document.getElementById("wordFeedback").className=
+            "feedback good";
+
+        playCorrect();
+
+    }else{
+
+        player.streak=0;
+
+        document.getElementById("wordFeedback").textContent=
+            `💡 ចម្លើយត្រឹមត្រូវគឺ «${currentWord}»`;
+
+        document.getElementById("wordFeedback").className=
+            "feedback bad";
+
+        playWrong();
+
+    }
+
+    document.getElementById("wordNext").classList.remove("hidden");
+
+    checkBadges();
+
+    savePlayer();
+
+}
+
+
+/* =========================================================
+   PICTURE GAME
+========================================================= */
+
+function openPictureGame(){
+
+    showPage("picture");
+
+    loadPicture();
+
+}
+
+
+function loadPicture(){
+
+    const p=
+        pictures[pictureIndex%pictures.length];
+
+    document.getElementById("guessImage").textContent=
+        p.emoji;
+
+    document.getElementById("pictureFeedback").textContent="";
+
+    const container=
+        document.getElementById("pictureAnswers");
+
+    container.innerHTML="";
+
+    p.options.forEach(option=>{
+
+        const btn=document.createElement("button");
+
+        btn.className="answer";
+
+        btn.textContent=option;
+
+        btn.onclick=()=>pictureAnswer(option,p.answer,btn);
+
+        container.appendChild(btn);
+
+    });
+
+}
+
+
+function pictureAnswer(answer,correct,button){
+
+    const buttons=
+        document.querySelectorAll("#pictureAnswers .answer");
+
+    buttons.forEach(b=>b.disabled=true);
+
+    player.questionsAnswered++;
+
+    if(answer===correct){
+
+        button.classList.add("correct");
+
+        player.correctAnswers++;
+
+        player.score+=15;
+
+        player.streak++;
+
+        if(player.streak>player.bestStreak)
+            player.bestStreak=player.streak;
+
+        document.getElementById("pictureFeedback").textContent=
+            "🎉 ត្រូវហើយ! +15 ⭐";
+
+        document.getElementById("pictureFeedback").className=
+            "feedback good";
+
+        playCorrect();
+
+    }else{
+
+        button.classList.add("wrong");
+
+        player.streak=0;
+
+        document.getElementById("pictureFeedback").textContent=
+            `💡 ចម្លើយគឺ ${correct}`;
+
+        document.getElementById("pictureFeedback").className=
+            "feedback bad";
+
+        playWrong();
+
+    }
+
+    checkBadges();
+
+    savePlayer();
+
+    setTimeout(()=>{
+
+        pictureIndex++;
+
+        loadPicture();
+
+    },1300);
+
+}
+
+
+/* =========================================================
+   ERROR GAME
+========================================================= */
+
+function openErrorGame(){
+
+    showPage("error");
+
+    loadError();
+
+}
+
+
+function loadError(){
+
+    const item=
+        errorGames[errorIndex%errorGames.length];
+
+    document.getElementById("errorQuestion").textContent=
+        item.q;
+
+    document.getElementById("errorFeedback").textContent="";
+
+    const container=
+        document.getElementById("errorAnswers");
+
+    container.innerHTML="";
+
+    item.options.forEach((option,index)=>{
+
+        const btn=document.createElement("button");
+
+        btn.className="answer";
+
+        btn.textContent=option;
+
+        btn.onclick=()=>errorAnswer(index,item.c,btn);
+
+        container.appendChild(btn);
+
+    });
+
+}
+
+
+function errorAnswer(index,correct,button){
+
+    const buttons=
+        document.querySelectorAll("#errorAnswers .answer");
+
+    buttons.forEach(b=>b.disabled=true);
+
+    player.questionsAnswered++;
+
+    if(index===correct){
+
+        button.classList.add("correct");
+
+        player.correctAnswers++;
+
+        player.score+=20;
+
+        player.streak++;
+
+        if(player.streak>player.bestStreak)
+            player.bestStreak=player.streak;
+
+        document.getElementById("errorFeedback").textContent=
+            "🔍 ពូកែសង្កេតណាស់! +20 ⭐";
+
+        document.getElementById("errorFeedback").className=
+            "feedback good";
+
+        playCorrect();
+
+    }else{
+
+        button.classList.add("wrong");
+
+        player.streak=0;
+
+        document.getElementById("errorFeedback").textContent=
+            "💡 សាកល្បងមើលម្តងទៀត!";
+
+        document.getElementById("errorFeedback").className=
+            "feedback bad";
+
+        playWrong();
+
+    }
+
+    checkBadges();
+
+    savePlayer();
+
+    setTimeout(()=>{
+
+        errorIndex++;
+
+        loadError();
+
+    },1400);
+
+}
+
+
+/* =========================================================
+   LEADERBOARD
+========================================================= */
+
+function showLeaderboard(){
+
+    renderLeaderboard();
+
+    showPage("leader");
+
+}
+
+
+function renderLeaderboard(){
+
+    const data=[
+        {
+            name:player.name,
+            score:player.score,
+            level:player.level
+        },
+
+        {
+            name:"អ្នកប្រាជ្ញ A",
+            score:1250,
+            level:24
+        },
+
+        {
+            name:"សិស្សឆ្នើម",
+            score:980,
+            level:18
+        },
+
+        {
+            name:"អ្នកគិតលឿន",
+            score:760,
+            level:14
+        },
+
+        {
+            name:"អ្នករៀនពូកែ",
+            score:520,
+            level:10
+        }
+    ];
+
+    data.sort((a,b)=>b.score-a.score);
+
+    const body=
+        document.getElementById("leaderboardBody");
+
+    body.innerHTML="";
+
+    data.forEach((item,index)=>{
+
+        const tr=document.createElement("tr");
+
+        tr.innerHTML=`
+            <td>
+                ${index===0?"🥇":
+                  index===1?"🥈":
+                  index===2?"🥉":
+                  index+1}
+            </td>
+
+            <td>${escapeHTML(item.name)}</td>
+
+            <td>⭐ ${item.score.toLocaleString()}</td>
+
+            <td>🏆 ${item.level}</td>
+        `;
+
+        body.appendChild(tr);
+
+    });
+
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function openSettings(){
+
+    document.getElementById("nameInput").value=
+        player.name;
+
+    document.getElementById("soundToggle").checked=
+        player.sound;
+
+    document.getElementById("darkToggle").checked=
+        player.dark;
+
+    document.getElementById("settingsModal")
+        .classList.add("show");
+
+}
+
+
+function saveSettings(){
+
+    const name=
+        document.getElementById("nameInput")
+            .value.trim();
+
+    if(name){
+        player.name=name;
+    }
+
+    player.sound=
+        document.getElementById("soundToggle").checked;
+
+    player.dark=
+        document.getElementById("darkToggle").checked;
+
+    applyDark();
+
+    savePlayer();
+
+    closeModal("settingsModal");
+
+    toast("💾 បានរក្សាទុកការកំណត់!");
+
+}
+
+
+function toggleDark(){
+
+    player.dark=
+        document.getElementById("darkToggle").checked;
+
+    applyDark();
+
+    savePlayer();
+
+}
+
+
+function applyDark(){
+
+    if(player.dark){
+
+        document.documentElement.style.setProperty(
+            "--bg","#101426"
+        );
+
+        document.documentElement.style.setProperty(
+            "--card","#1b2138"
+        );
+
+        document.documentElement.style.setProperty(
+            "--text","#f4f6ff"
+        );
+
+        document.documentElement.style.setProperty(
+            "--muted","#aab1c5"
+        );
+
+        document.documentElement.style.setProperty(
+            "--border","#303850"
+        );
+
+        document.body.style.background="#101426";
+
+    }else{
+
+        document.documentElement.style.setProperty(
+            "--bg","#f4f7ff"
+        );
+
+        document.documentElement.style.setProperty(
+            "--card","#ffffff"
+        );
+
+        document.documentElement.style.setProperty(
+            "--text","#20233a"
+        );
+
+        document.documentElement.style.setProperty(
+            "--muted","#697086"
+        );
+
+        document.documentElement.style.setProperty(
+            "--border","#e4e7f2"
+        );
+
+        document.body.style.background="";
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetGame(){
+
+    const ok=
+        confirm(
+            "⚠️ តើអ្នកពិតជាចង់លុបទិន្នន័យទាំងអស់មែនទេ?"
+        );
+
+    if(!ok)return;
+
+    localStorage.removeItem("littleScholarGame");
+
+    player=
+        JSON.parse(JSON.stringify(defaultPlayer));
+
+    savePlayer();
+
+    applyDark();
+
+    updateDailyButton();
+
+    toast("🗑️ ទិន្នន័យត្រូវបានលុប!");
+
+    closeModal("settingsModal");
+
+}
+
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+function randomInt(min,max){
+
+    return Math.floor(
+        Math.random()*(max-min+1)
+    )+min;
+
+}
+
+
+function shuffle(array){
+
+    for(let i=array.length-1;i>0;i--){
+
+        const j=Math.floor(
+            Math.random()*(i+1)
+        );
+
+        [array[i],array[j]]=
+        [array[j],array[i]];
+
+    }
+
+    return array;
+
+}
+
+
+function randomGood(){
+
+    const arr=[
+        "🎉 ពូកែណាស់!",
+        "🌟 អស្ចារ្យ!",
+        "👏 ល្អណាស់!",
+        "🧠 អ្នកឆ្លាតណាស់!",
+        "🚀 បន្តទៅមុខ!",
+        "🏆 ចម្លើយត្រឹមត្រូវ!",
+        "✨ អ្នកកំពុងធ្វើបានល្អ!"
+    ];
+
+    return arr[
+        randomInt(0,arr.length-1)
+    ];
+
+}
+
+
+function toast(message){
+
+    const el=document.getElementById("toast");
+
+    el.textContent=message;
+
+    el.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer=setTimeout(()=>{
+
+        el.classList.remove("show");
+
+    },2200);
+
+}
+
+
+function closeModal(id){
+
+    document.getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+function celebrate(title,text){
+
+    toast(`${title} ${text}`);
+
+}
+
+
+function escapeHTML(str){
+
+    return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+function playTone(frequency,duration){
+
+    if(!player.sound)return;
+
+    try{
+
+        const AudioContext=
+            window.AudioContext||
+            window.webkitAudioContext;
+
+        const ctx=new AudioContext();
+
+        const osc=ctx.createOscillator();
+
+        const gain=ctx.createGain();
+
+        osc.frequency.value=frequency;
+
+        osc.connect(gain);
+
+        gain.connect(ctx.destination);
+
+        osc.start();
+
+        gain.gain.setValueAtTime(
+            .15,
+            ctx.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            ctx.currentTime+duration
+        );
+
+        osc.stop(
+            ctx.currentTime+duration
+        );
+
+    }catch(e){}
+
+}
+
+
+function playCorrect(){
+
+    playTone(700,.12);
+
+    setTimeout(
+        ()=>playTone(900,.15),
+        100
+    );
+
+}
+
+
+function playWrong(){
+
+    playTone(180,.2);
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+function initialize(){
+
+    updateHeader();
+
+    applyDark();
+
+    updateDailyButton();
+
+    checkBadges();
+
+    unlockRewards();
+
+    savePlayer();
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initialize
+);
+
+
+/* =========================================================
+   SAVE WHEN LEAVING PAGE
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    ()=>{
+        savePlayer();
+    }
+);
+
+
+/* =========================================================
+   AUTO SAVE EVERY 10 SECONDS
+========================================================= */
+
+setInterval(
+    savePlayer,
+    10000
+);
 
 </script>
 
